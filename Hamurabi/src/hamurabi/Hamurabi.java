@@ -2,6 +2,8 @@ package hamurabi;
 
 //Hamurabi
 //Written by Achim Mertens
+// A small and old strategy game
+// started programming at November 2021
 
 import java.util.Scanner; // Import the Scanner class
 

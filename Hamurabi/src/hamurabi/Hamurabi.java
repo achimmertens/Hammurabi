@@ -19,7 +19,7 @@ public class Hamurabi {
 		int year=0;
 		float score = 0;
 		double harvest=0;
-		String event="";
+//		String event="";
 		
 		System.out.println("Dear King Hamurabi, try to get the highest treasure! (Enter 100 to end the game)");
 		System.out.println("Hint: Increasing the tax increases the the treasure but lowers the foodstorage");

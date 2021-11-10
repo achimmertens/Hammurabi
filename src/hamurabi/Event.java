@@ -5,7 +5,7 @@ public class Event {
 	
 	public String ev = "nothing special";
 	public double random = Math.round(Math.random()*100);
-	public double impact = Math.round(Math.random()*100);
+	public double impact = Math.round(Math.random()*75)+25; // Zwischen 75 und 100
 	public double prob = Math.round(Math.random()*100);
 	
 	public void main(String[] args) {

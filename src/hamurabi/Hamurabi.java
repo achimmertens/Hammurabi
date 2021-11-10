@@ -1,5 +1,6 @@
 package hamurabi;
 
+// ***********************************************
 //Hamurabi
 //Written by Achim Mertens
 // Version 2021.Nov.09

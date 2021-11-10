@@ -27,7 +27,9 @@ public class Event {
 			else if (random < 100) {ev = "an epidemy";}
 		}
 		else
-		{ev = "nothing special";}
+		{ev = "nothing special";
+		
+		}
 	}
 	
 }

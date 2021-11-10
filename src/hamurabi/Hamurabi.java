@@ -66,6 +66,7 @@ public class Hamurabi {
             	System.out.println("The impact was "+myObj.impact+"%");
             	harvest = harvest * myObj.impact/100;
             	System.out.println("Your harvest was reduced to: " +harvest);
+            	break;
             case "an attac":
             	System.out.println("The impact was "+myObj.impact+"%");
             	harvest = harvest * myObj.impact/100;
@@ -74,22 +75,32 @@ public class Hamurabi {
                 System.out.println("Your harvest was reduced to: " +harvest);
                 System.out.println("Your population was reduced to: " +population);
                 System.out.println("Your treasure was reduced to: " +treasure);
+                break;
             case "an earthquake":
             	System.out.println("The impact was "+myObj.impact+"%");
             	population = population * myObj.impact/100;
                 treasure = treasure * myObj.impact/100;
                 System.out.println("Your population was reduced to: " +population);
                 System.out.println("Your treasure was reduced to: " +treasure);
+                break;
             case "an epidemy":
             	System.out.println("The impact was "+myObj.impact+"%");
             	population = population * myObj.impact/100;
                 System.out.println("Your harvest was reduced to: " +harvest);
                 System.out.println("Your population was reduced to: " +population);
                 System.out.println("Your treasure was reduced to: " +treasure);
+                break;
             	
             }
 		    
-		    
+		    if (year%10==0)
+		    {
+		    	System.out.println("Congratulations, you survived now for " +year+" years");
+		    	System.out.println("Your neighboursgive you a tribute of " +(year*100)+ " Treasure");
+		    	treasure = treasure + (year*100);
+		    }
+		    	
+		    	
 			System.out.println("The Treasure is: "+treasure+", the harvest was "+harvest+", the foodstorage is: "+food+", the population is: "+population + ", your score is: "+score);
 			
 

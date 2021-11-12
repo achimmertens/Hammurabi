@@ -6,6 +6,8 @@ package hamurabi;
 // ***********    Version 2021.Nov.09      **********
 // **************************************************
 
+// now sync with the Personal Access Token to Github
+
 //import java.util.Scanner; // Import the Scanner class
 
 public class Hamurabi {

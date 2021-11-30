@@ -1,4 +1,4 @@
-package hamurabi;
+package main.java.de.achim.util;
 
 // **************************************************
 // ****************** Hamurabi **********************
@@ -11,7 +11,7 @@ package hamurabi;
 
 public class Hamurabi {
 
-	public static void main(String[] args) {
+	public static void loop() {
 		// TODO Auto-generated method stub
 
 		System.out.println("Hamurabi");
@@ -36,7 +36,7 @@ public class Hamurabi {
 			@SuppressWarnings("resource")
 //			Scanner myTax = new Scanner(System.in); // Create a Scanner object
 			/* HelloWorld.main(args); */
-			Event myObj = new Event();
+					Event myObj = new Event();
 			myObj.event();
 			
 			year = year + 1;

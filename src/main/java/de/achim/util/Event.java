@@ -1,4 +1,4 @@
-package hamurabi;
+package main.java.de.achim.util;
 
 public class Event {
 

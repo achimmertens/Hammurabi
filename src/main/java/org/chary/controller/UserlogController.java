@@ -5,11 +5,10 @@ import org.chary.entity.UserlogEntity;
 import org.chary.repository.UserlogRepository;
 import org.chary.services.UserlogService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +22,10 @@ public class UserlogController {
     // Spring searches for a corresponding class and finds UserlogserviceImpl
     // Spring creates an instance of it and puts it into userlogservice
 
+    @Autowired
+    UserlogRepository userlogrepository;
+
+    //Read -----------------------------------------------------------------
     @GetMapping(value = "/userlogs")  //curl -X -get http://localhost:8099/userlogcontroller/userlogs"
     public List<Userlogdto> getAllUserlogs() {
         System.out.println("Hier sind alle Userlog-Einträge: " + userlogservice.getAllUserlogs().toString());
@@ -30,6 +33,15 @@ public class UserlogController {
 
     }
 
+    @GetMapping(value = "/welcome")
+    public String welcome() {
+        return "Welcome to the Hamurabi-Game - Written by Achim Mertens";
+    }
 
-
+    //Create -----------------------------------------------------------------
+    @PostMapping(value = "/userlogs")
+    public UserlogEntity newUserlog (@RequestBody UserlogEntity newUserlog)
+    {
+        return userlogrepository.save(newUserlog);
+    }
 }

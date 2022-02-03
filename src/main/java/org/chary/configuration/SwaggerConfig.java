@@ -19,7 +19,7 @@ public class SwaggerConfig {
 
 
     public static final Contact DEFAULT_CONTACT = new Contact(
-            "Hans-Joachim Blanke", "http://www.4point.de", "blanke@4point.de");
+            "Achim Mertens", "http://peakd.com/@achimmertens", "achim_mertens@gmx.de");
 
     private static final Set<String> DEFAULT_PRODUCES_AND_CONSUMES =
             new HashSet<String>(Arrays.asList("application/json","application/xml"));
@@ -35,9 +35,9 @@ public class SwaggerConfig {
     private static ApiInfo apiInfo() {
         return new ApiInfoBuilder().title("Swagger API")
                 .description("Swagger API reference for developers")
-                .version("1.0")
+                .version("2.0")
                 .contact(DEFAULT_CONTACT)
-                .termsOfServiceUrl("http://www.4point.de")
+                .termsOfServiceUrl("http://peakd.com/@achimmertens")
                 .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0").build();
     }
 }

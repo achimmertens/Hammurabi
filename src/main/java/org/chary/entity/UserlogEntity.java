@@ -1,14 +1,15 @@
 package org.chary.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="Userlog")
 public class UserlogEntity {
-    @Id
-    private int id;
+    @Id @GeneratedValue
+    private String id;
     private String username;
     private String logintime;
 
@@ -17,17 +18,17 @@ public class UserlogEntity {
     // No default constructor for entity:  : org.chary.entity.UserlogEntity] with root cause
 
 
-    public UserlogEntity(int id, String username, String logintime) {
+    public UserlogEntity(String id, String username, String logintime) {
         this.id = id;
         this.username = username;
         this.logintime = logintime;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

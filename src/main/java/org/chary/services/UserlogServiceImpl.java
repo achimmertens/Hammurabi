@@ -30,4 +30,6 @@ public class UserlogServiceImpl implements UserlogService {
         }
         return userlogdtoList;
     }
+
+
 }

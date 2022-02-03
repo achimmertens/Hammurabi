@@ -5,12 +5,10 @@ import org.chary.entity.UserlogEntity;
 import org.chary.repository.UserlogRepository;
 import org.chary.services.UserlogService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -30,8 +28,18 @@ public class UserlogController {
     public List<Userlogdto> getAllUserlogs() {
         System.out.println("Hier sind alle Userlog-Einträge: " + userlogservice.getAllUserlogs().toString());
         return userlogservice.getAllUserlogs();
-
     }
+
+        // Read Single Item
+    @GetMapping(value = "/userlog/{id}")
+        public Optional<UserlogEntity> one (@PathVariable String id)
+        {
+            return userlogrepository.findById(id);
+        }
+
+
+
+
 
     @GetMapping(value = "/welcome")
     public String welcome() {
@@ -44,4 +52,11 @@ public class UserlogController {
     {
         return userlogrepository.save(newUserlog);
     }
+
+
+    //Update ----------------------------------------------------------------
+    //@PutMapping("/userlogs/{id}")
+    //public UserlogEntity replaceUserlog ()
+
+
 }

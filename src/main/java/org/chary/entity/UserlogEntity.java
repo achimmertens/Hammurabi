@@ -8,7 +8,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name="Userlog")
 public class UserlogEntity {
-    @Id @GeneratedValue
+
+    @Id
+    //@GeneratedValue is only allowed if ID is from type integer
     private String id;
     private String username;
     private String logintime;

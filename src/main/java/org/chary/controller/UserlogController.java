@@ -30,15 +30,11 @@ public class UserlogController {
         return userlogservice.getAllUserlogs();
     }
 
-        // Read Single Item
+    // Read Single Item
     @GetMapping(value = "/userlog/{id}")
-        public Optional<UserlogEntity> one (@PathVariable String id)
-        {
-            return userlogrepository.findById(id);
-        }
-
-
-
+    public Optional<UserlogEntity> one(@PathVariable String id) {
+        return userlogrepository.findById(id);
+    }
 
 
     @GetMapping(value = "/welcome")
@@ -48,15 +44,25 @@ public class UserlogController {
 
     //Create -----------------------------------------------------------------
     @PostMapping(value = "/userlogs")
-    public UserlogEntity newUserlog (@RequestBody UserlogEntity newUserlog)
-    {
+    public UserlogEntity newUserlog(@RequestBody UserlogEntity newUserlog) {
         return userlogrepository.save(newUserlog);
     }
 
 
     //Update ----------------------------------------------------------------
-    //@PutMapping("/userlogs/{id}")
-    //public UserlogEntity replaceUserlog ()
+    //The object "userlogEntity" is automatecally created by Spring, so we don't need an instantiation here anywhere
+    //The result of "userlogEntity" is copied into "userlogEntity"
+    @PutMapping("/userlogs/{id}")
+    public UserlogEntity replaceUserlog(@RequestBody UserlogEntity replaceUserlog, @PathVariable String id) {
+        return userlogrepository.findById(id).map(userlogEntity -> {
+                    userlogEntity.setUsername(replaceUserlog.getUsername());
+                    userlogEntity.setLogintime(replaceUserlog.getLogintime());
+                    return userlogrepository.save(userlogEntity);     })
+                .orElseGet( () -> {
+                    replaceUserlog.setId(id);
+                    return userlogrepository.save(replaceUserlog);
+                });
+    }
 
 
 }

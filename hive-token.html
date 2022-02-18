@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hive-Token Client</title>
+    <!-- <script type="text/javascript" src="./SimpsonsUtilclass2.js" ></script> -->
+    <script type="text/javascript">
+        // 1. XHR erzeugen
+        let xhr = new XMLHttpRequest(); //ab ECMA--5
+        function makeTokenObjekt() {
+            let token = parseFloat(document.getElementById("Token").value);
+            // let simpsonsclass = new SimpsonsUtilclass2();
+            //let tokenHistorie = [];
+            //2. Init / Config des XHR Objektes
+            //let jsonstream = JSON.stringify(kreisclass);  
+            //https://thesimpsonsquoteapi.glitch.me/quotes?count=num
+            //xhr.open("POST","http://localhost:8099/kreisrechner/kreisobj", true);
+            //xhr.open("GET", "https://thesimpsonsquoteapi.glitch.me/quotes?count=" + token, true);
+            xhr.open("POST", "https://api.hive-engine.com/rpc/contracts", true);
+            // xhr.setRequestHeader("Accept","application/json");
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            //Call-Back-Funktion einbinden
+            // xhr.onreadystatechange = mycallback;
+            xhr.onloadstart = () => {
+                console.log("xhr.onloadstart");
+                document.getElementById("butTokenObjekt").disabled = true;
+                document.getElementById("Token").disabled = true;
+            };
+            xhr.onloadend = () => {
+                console.log("xhr.onloadend");
+                document.getElementById("butTokenObjekt").disabled = false;
+                document.getElementById("Token").disabled = false;
+            };
+            let msg = `
+                    <span style="color: red"> 
+                       Error: Server-Timeout
+                     </span>
+                `;
+
+            xhr.ontimeout = () => {
+                console.log("xhr.timeout");
+                document.getElementById("butTokenObjekt").disabled = false;
+                document.getElementById("Token").disabled = false;
+                document.getElementById("outid").innerHTML = msg;
+            }
+            xhr.onload = () => {
+                console.log("xhr.onload");
+                console.log("xhr.readystate: " + xhr.readystate);
+
+                if (xhr.status === 200) {
+
+                    
+
+
+
+                    let jsonstream = xhr.responseText;
+                    //document.getElementById("outid").innerHTML = xhr.responseText;
+                    //tokenHistorie = JSON.parse(jsonstream);
+                    console.log("Hier ist der Inhalt von tokenHistorie: " + jsonstream);
+                    var jsondata =JSON.parse(jsonstream);
+                    console.log("Hier sit di Haupt_id: " + jsondata.id);
+                    console.log("Hier ist der erste buyer:" + jsondata.result[0].buyer);
+                    let msg = "<span style='color: blue'>";
+                    msg = msg + "Der letzte Käufer war: " + jsondata.result[0].buyer +"<br>";
+                    msg = msg + "erste _id: " + jsondata.result[0]._id + "<br>";
+                    msg = msg + "Der Preis ist: " + jsondata.result[0].price + " HIVE/" + tk + "<br>";
+                    //console.log(date2.toDateString()+" "+date2.toLocaleTimeString());
+                    let date= new Date(jsondata.result[0].timestamp * 1000);
+                    console.log("Datum und Uhrzeit: "+  jsondata.result[0].timestamp.toLocaleDateString)// + " "+ jsondata.result[0].timestamp.toLocaleTimeString);
+                    msg = msg + " Der Kauf fand statt am: " + date.toString() + "<br> ";
+                    //msg = msg + "<img src=" + element.image + ">" + "<br>";
+                    msg = msg + "</span>";
+                    document.getElementById("outid").innerHTML = msg;
+                    // document.getElementById("bild").innerHTML="<img src="+element.image+">";
+
+
+
+                    //document.getElementById("stream").innerText = tokenHistorie.toString();
+                }
+                else {
+                    document.getElementById("outid").innerHTML = xhr.responseText;
+                }
+
+            };
+            xhr.onprogress = () => {
+                console.log("xhr.onprogress");
+                console.log("Rolling,....");
+            };
+
+            xhr.onerror = () => {
+                console.log("xhr.timeout");
+                document.getElementById("butTokenObjekt").disabled = false;
+                document.getElementById("Token").disabled = false;
+                let msg = "<span style='color: red'> Error: Any Error has occured!";
+                document.getElementById("outid").innerHTML = msg;
+            }
+            //3. Senden
+            //let jsonpost = "{ /"jsonrpc/": /"2.0/", /"method/": /"find / ", /"params / ": { /"contract / ": /"marke / ", /"table / ": /"tradesHistory / ", /"query / ": { /"symbol / ": /"BEER / "}, /"limit / ":1000, /"offset / ": 0 }, /"id / ": 1 }";
+            //let data = `{ "jsonrpc": "2.0", "method": "find", "params": { "contract": "market", "table": "tradesHistory", "query": { "symbol": "BEER"}, "limit":1000, "offset": 0 }, "id": 1 }`;
+            let data = JSON.stringify({ "jsonrpc": "2.0", "method": "find", "params": { "contract": "market", "table": "tradesHistory", "query": { "symbol": "BEER" }, "limit": 1000, "offset": 0 }, "id": 1 });
+            //let tk = "SPT";
+            //let anzahl = parseFloat(document.getElementById("Anzahlid").value);
+            let tk =  document.getElementById("Token").value;
+            console.log("Inhalt von Button:"+tk);
+            let datapost=JSON.parse(data);
+            datapost.params.query.symbol=tk;
+            data = JSON.stringify(datapost);
+
+          
+            console.log("Hier ist der Post Dateninhalt: "+data);
+            xhr.send(data);  // xhr.send() bei GET; Bei POST: xhr.send(data); -> data in den RequestBody
+        }
+    </script>
+</head>
+
+<body>
+
+    <header>
+
+        <h1> Hive tokenHistorie holen </h1>
+
+        <hr />
+
+    </header>
+
+    <section>
+
+        <div>
+
+            <form>
+
+                <label for='Token'> Eingabe <br />
+
+                    <input id="Token" name='token' type='text' value="" size='20' required
+                        placeholder="Bitte den gewünschten Token eingeben" /><br />
+
+                </label>
+
+                <button id="butTokenObjekt" type='button' onclick='makeTokenObjekt();'>TokenHistorie holen
+                    (TokenHistorieObjekt)</button>
+
+            </form>
+
+        </div>
+
+        <div id="outid"></div>
+
+        <div id="stream"></div>
+
+    </section>
+
+</body>
+
+</html>

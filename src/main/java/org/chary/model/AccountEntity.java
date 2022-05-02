@@ -3,7 +3,7 @@ package org.chary.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
 
-@Document(indexName = org.chary.helper.Indices.ACCOUNT_INDEX)
+@Document(indexName = "account")
 @Setting(settingPath = "static/es-settings.json")
 
 public class AccountEntity {
@@ -24,7 +24,6 @@ public class AccountEntity {
 
     //getters and setters
 
-
     public String getId() {
         return id;
     }
@@ -33,7 +32,7 @@ public class AccountEntity {
         this.id = id;
     }
 
-    public String getUsername() {
+    public String getName() {
         return name;
     }
 

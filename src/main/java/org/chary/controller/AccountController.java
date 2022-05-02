@@ -1,6 +1,5 @@
 package org.chary.controller;
 
-
 import org.chary.model.AccountEntity;
 import org.chary.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;

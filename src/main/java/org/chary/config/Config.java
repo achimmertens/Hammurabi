@@ -24,7 +24,6 @@ public class Config extends AbstractElasticsearchConfiguration {
         final ClientConfiguration config = ClientConfiguration.builder()
                 .connectedTo(elasticsearchUrl)
                 .build();
-
         return RestClients.create(config).rest();
     }
 }

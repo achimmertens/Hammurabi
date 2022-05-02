@@ -2,9 +2,7 @@ package org.chary.controller;
 
 
 import org.chary.model.AccountEntity;
-import org.chary.model.UserEntity;
 import org.chary.service.AccountService;
-import org.chary.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

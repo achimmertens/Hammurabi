@@ -22,4 +22,5 @@ public class AccountService {
     public AccountEntity findById(final String id) {
         return repository.findById(id).orElse(null);
     }
+
 }

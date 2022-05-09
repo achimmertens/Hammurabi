@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Docker ####
+/backend/Docker/*.jar
+
+### frontend ###
+/frontend/node_modules

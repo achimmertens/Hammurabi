@@ -31,7 +31,7 @@ public class AccountService {
 
     public List<Iterable<AccountEntity>> getAllAccounts() {
         List<Iterable<AccountEntity>> accounts = new ArrayList<>();
-        accounts.add(repository.findAll(Pageable.unpaged()));
+        accounts.add(repository.findAll());
         return (accounts);
     }
 /*

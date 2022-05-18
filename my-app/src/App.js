@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+class App extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			Account: '',
+			error: null,
+			isLoaded: false,
+		};
+		this.handleGET = this.handleGET.bind(this);
+		this.handleChangeAccount = this.handleChangeAccount.bind(this);
+	}
 
-export default App;
+	componentDidMount() {
+		this.handleAccounts()
+	}
+
+	handleChangeAccount(event) {
+		this.setState({ account: event.target.value });
+	}
+
+		handleAccounts() {
+    		fetch("https://api.thecatapi.com/v1/breeds")
+    			.then(res => res.json())
+    			.then(
+    				(result) => {
+    					this.setState({
+    						isLoaded: true,
+    						breedList: result
+    					})
+    				},
+    				(error) => {
+    					this.setState({
+    						isLoaded: true,
+    						error
+    					});
+    				}
+    			)
+    	}

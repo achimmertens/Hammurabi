@@ -1,25 +1,36 @@
 import './App.css';
-import Accounts from './accounts.json';
 import React from 'react';
-import Records from './records.json';
 
 class App extends React.Component {
 
-	constructor(props) {
-		super(props);
-		this.state = {
-		    breed: 'abys',			account: 'Anika',
-			error: null,
-			isLoaded: false,
-			accountList: [],
-			data: []
-		};
-	}
+constructor(props) {
+    super(props);
+    this.state = {
+        account: 'Anika',
+        error: null,
+        isLoaded: false,
+        accountList: [],
+        data: []
+    };
+    this.onInputchange = this.onInputchange.bind(this);
+    this.onSubmitForm = this.onSubmitForm.bind(this);
+}
 
-	componentDidMount() {
-		this.handleAccounts()
-	}
+componentDidMount() {
+    this.handleAccounts()
+}
 
+onInputchange(event) {
+    this.setState({
+    [event.target.name]: event.target.value
+    });
+}
+
+
+onSubmitForm() {
+console.log(this.state)
+console.log(this.state.accountList[0].content[0].name)
+}
 
 
 handleAccounts() {
@@ -75,15 +86,31 @@ var greensniperimg ="https://greensniper.files.wordpress.com/2011/03/portrait-gr
 
 
                 <br /><br/>
+                Please insert your Hive-account name: @
+                <input
+                            name="account"
+                            type="text"
+                            value={this.state.account}
+                            onChange={this.onInputchange}
+                />
+                <div>
+
+                            <button onClick={this.onSubmitForm}>Submit</button>
+
+                </div>
                 <br/> <br/>
 
-                <select id="selectAccount" value={'Anika'} onChange={this.handleChangeBreed}>
+                <select id="selectAccount" value={this.state.account} onChange={this.handleChangeBreed}>
                 						{accountlist.map
                 						  ((b) => (
                                           	<option value={b.content[0].name}>{b.content[0].nickname}</option>))
                 						}
                 						</select>
                 <br/> <br/>
+
+
+                <br/> <br/>
+
                 huhu
                 <br/> <br/>
 
@@ -96,7 +123,7 @@ var greensniperimg ="https://greensniper.files.wordpress.com/2011/03/portrait-gr
                           <br />
                           <br />
 
-                               <select id="selectAccount" value={'Anika'} onChange={this.handleChangeBreed}>
+                               <select id="selectAccount" value={this.state.account} onChange={this.handleChangeBreed}>
                                         {account.content.map
                                           ((b) => (
                                             <option value={b.name}>{b.nickname}</option>))

@@ -37,3 +37,4 @@ build/
 
 ### frontend ###
 /frontend/node_modules
+/my-app/node_modules

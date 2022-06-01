@@ -18,9 +18,7 @@ constructor(props) {
     };
     this.onInputchangeName = this.onInputchangeName.bind(this);
     this.onInputchangeId = this.onInputchangeId.bind(this);
-    this.onSetHiveAccount = this.onSetHiveAccount.bind(this);
     this.handleGET = this.handleGET.bind(this);
-
 }
 
 componentDidMount() {
@@ -42,11 +40,6 @@ var myinput = document.getElementById('selectAccount');  //optional Method
     });
 console.log("Id von " + this.state.account + " ist: " + this.state.id);
 console.log("myinput von " + this.state.account + " ist: " + ReactDOM.findDOMNode(myinput).value);
-}
-
-onSetHiveAccount(name) {
-this.setState({ account: name });
-console.log("Id von " + this.state.account + " ist: " + this.state.id);
 }
 
 handleAccounts() {
@@ -96,7 +89,6 @@ var accountlist = this.state.accountList;
 var accountString =JSON.stringify(accountlist);
 var greensniperimg ="https://greensniper.files.wordpress.com/2011/03/portrait-greensniper.jpg?w=388"
 console.log("accountlist: " + JSON.stringify(accountlist));
-
 if (this.state.isLoaded) {
         return (
             <div className="App">
@@ -120,19 +112,15 @@ if (this.state.isLoaded) {
                       return (
                         <div className="box" >
                           <br />
-
                                <select id="selectAccount" value={this.state.id} onChange={this.onInputchangeId}>
                                         {  this.state.content= account.content.map
                                           ((b) => (
                                             <option value={b.id}>
                                             {b.name}
-
                                             </option>)
-
                                             )
                                         }
                                         </select>
-
                           {account.content &&
                             account.content.map((d) => {
                               return (

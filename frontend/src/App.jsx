@@ -37,14 +37,9 @@ onInputchangeName(event) {
 
 onInputchangeId(event) {
 var myinput = document.getElementById('selectAccount');  //optional Method
-
-
     this.setState({
     id: event.target.value
     });
-
-
-
 console.log("Id von " + this.state.account + " ist: " + this.state.id);
 console.log("myinput von " + this.state.account + " ist: " + ReactDOM.findDOMNode(myinput).value);
 }
@@ -54,9 +49,7 @@ this.setState({ account: name });
 console.log("Id von " + this.state.account + " ist: " + this.state.id);
 }
 
-
 handleAccounts() {
-	//fetch ("https://api.thecatapi.com/v1/breeds")
 	fetch("http://localhost:8080/api/accounts/")
 			.then(res => res.json())
 			.then(
@@ -71,11 +64,8 @@ handleAccounts() {
 						isLoaded: true,
 						error
 					});
-
 			})
 			.then (console.log("Fetch accountList: " + JSON.stringify(this.state.accountList)))
-
-	// console.log("BreedList[0].id: " + JSON.stringify(this.state.breedList[0].id));
 }
 
 handleGET() {
@@ -96,7 +86,6 @@ handleGET() {
 					});
 				}
 			)
-
 }
 
 
@@ -105,25 +94,16 @@ render()
 const { error, isLoaded, data } = this.state;
 var accountlist = this.state.accountList;
 var accountString =JSON.stringify(accountlist);
-var dat = this.state.data;
-
-
-console.log("accountlist: " + JSON.stringify(accountlist));
-
 var greensniperimg ="https://greensniper.files.wordpress.com/2011/03/portrait-greensniper.jpg?w=388"
+console.log("accountlist: " + JSON.stringify(accountlist));
 
 if (this.state.isLoaded) {
         return (
             <div className="App">
                     Current Time: {new Date().toLocaleTimeString()}
                 ... Hammurabi ... <br/>
-                accountlist = {JSON.stringify(accountlist)} <br/><br/>
-
-              dat = {JSON.stringify(dat)}  <br/><br/>
-
-
-
-                <br /><br/>
+                accountlist = {JSON.stringify(accountlist)}
+                <br/><br/>
                 Please insert your Hive-account name: @
                 <input
                             name="account"
@@ -134,23 +114,11 @@ if (this.state.isLoaded) {
                        <button value={this.state.account} onClick={this.onInputchangeName}>Submit</button>
                 <br/> <br/>
                 <div>Der Name lautet: {this.state.account} </div>
-
-
-
-
-                <br/> <br/>
-
-                huhu
-                <br/> <br/>
-
-                <br/> <br/>
                 {
                   accountlist &&
                     accountlist.map((account) => {
                       return (
                         <div className="box" >
-
-                          <br />
                           <br />
 
                                <select id="selectAccount" value={this.state.id} onChange={this.onInputchangeId}>
@@ -164,13 +132,6 @@ if (this.state.isLoaded) {
                                             )
                                         }
                                         </select>
-
-
-
-                               <div>Die ID lautet: {this.state.id} </div>
-
-
-
 
                           {account.content &&
                             account.content.map((d) => {
@@ -186,36 +147,17 @@ if (this.state.isLoaded) {
                       );
                     })
                 }
-
-                <br/><br/>
                 <button onClick={this.handleGET} className="btn btn-primary">Account</button>
                 <hr />
                 ID =        {JSON.stringify(data.id)} <br/>
                 Name =      {JSON.stringify(data.name)} <br/>
                 Nickname =  {JSON.stringify(data.nickname)} <br/>
                 Logindate = {JSON.stringify(data.logindate)} <br/>
-
-
-
-
-
-
-                <br/><br/>
-
-
-
                 <img src={greensniperimg} />
                 <hr />
            </div>
         )
      }
-}
-}
+}}
 
 export default App;
-/*  <div>
-                            {data.map((item) => (
-                              <div>{item}</div>
-                            ))}
-                          </div>
-                          */

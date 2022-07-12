@@ -43,7 +43,7 @@ console.log("myinput von " + this.state.account + " ist: " + ReactDOM.findDOMNod
 }
 
 handleAccounts() {
-	fetch("http://localhost:8080/api/accounts/")
+	fetch("http://192.168.2.121:8080/api/accounts/")
 			.then(res => res.json())
 			.then(
 				(result) => {
@@ -63,7 +63,7 @@ handleAccounts() {
 
 handleGET() {
 	console.log("handleGET: "+ "http://localhost:8080/api/account/" + this.state.id)
-	fetch("http://localhost:8080/api/account/" + this.state.id)
+	fetch("http://192.168.2.121:8080/api/account/" + this.state.id)
 			.then(res => res.json())
 			.then(
 				(result) => {

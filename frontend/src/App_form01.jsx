@@ -1,5 +1,4 @@
 import React from 'react';
-import Read from './Read.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -80,7 +79,6 @@ class App extends React.Component {
 
       <hr/>
     </div>
-
     );
   }
 }

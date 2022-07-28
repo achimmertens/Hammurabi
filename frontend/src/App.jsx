@@ -1,5 +1,6 @@
 import React from 'react';
-import Read from './Read.jsx';
+//import Read from './Read.jsx';
+//import ReactDOM from 'react-dom';
 
 class App extends React.Component {
   constructor(props) {
@@ -9,15 +10,43 @@ class App extends React.Component {
     id: null,
     name: null,
     logindate:null,
-    timestamp: null
+    timestamp: null,
+    isLoaded: false,
+    error: false,
+    accountList: null,
+    data: []
     };
-
     this.handleChangeId = this.handleChangeId.bind(this);
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangeNickName = this.handleChangeNickName.bind(this);
     this.handleSubmitId = this.handleSubmitId.bind(this);
     this.handleSubmitName = this.handleSubmitName.bind(this);
-  }
+   }
+
+componentDidMount() {
+    this.handleAccounts()
+}
+
+handleAccounts() {
+const params = {
+    method: 'GET',
+    headers: {
+        'accept': 'application/json'
+    }
+};
+	fetch("http://192.168.2.121:8080/api/accounts/",params)
+	        .then(response => response.json())
+	        //.then(response => response.blob())  //mutual exclusive with json
+            .then(
+                                    				(data) => {
+                                    					this.setState({
+                                    						isLoaded: true,
+                                    						accountList: data
+                                    					})
+
+                                    			})
+            .catch(e => console.error(e));
+}
 
     handleChangeId(event) {
     this.setState({id: event.target.value});
@@ -62,6 +91,7 @@ class App extends React.Component {
     }
 
   render() {
+  const { error, isLoaded, data } = this.state;
     return (
     <div className="App">
         <form onSubmit={this.handleSubmitName}>
@@ -79,6 +109,16 @@ class App extends React.Component {
       The complete content is: {this.state.id}, {this.state.name}, {this.state.nickname}, {this.state.logindate}
 
       <hr/>
+      <form onSubmit={this.handleAccounts}>
+      <label>
+      isLoaded = {JSON.stringify(this.state.isLoaded)} <br/>
+      error = {JSON.stringify(this.state.error)} <br/>
+      accountList = {JSON.stringify(this.state.accountList)}       <br/>
+    data = {this.state.data} <br/>
+    </label>
+    <button type="submit" >Refresh</button>
+    </form>
+          <hr/>
     </div>
 
     );

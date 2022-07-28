@@ -61,9 +61,9 @@ handleAccounts() {
 			.then (console.log("Fetch accountList: " + JSON.stringify(this.state.accountList)))
 }
 
-handleGET() {
-	console.log("handleGET: "+ "http://localhost:8080/api/account/" + this.state.id)
-	fetch("http://192.168.2.121:8080/api/account/" + this.state.id)
+handleGET(id) {
+	console.log("handleGET: "+ "http://localhost:8080/api/account/" + id)
+	fetch("http://192.168.2.121:8080/api/account/" + id)
 			.then(res => res.json())
 			.then(
 				(result) => {
@@ -79,6 +79,7 @@ handleGET() {
 					});
 				}
 			)
+			return this.state.data;
 }
 
 

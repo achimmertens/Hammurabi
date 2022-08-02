@@ -2,17 +2,20 @@ package org.chary.service;
 
 import org.chary.model.AccountEntity;
 import org.chary.repository.AccountRepository;
+import org.elasticsearch.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountService {
 
     @Autowired
+    static
     AccountRepository repository;
 
     @Autowired
@@ -33,6 +36,21 @@ public class AccountService {
         List<Iterable<AccountEntity>> accounts = new ArrayList<>();
         accounts.add(repository.findAll());
         return (accounts);
+    }
+
+
+    public static void deleteAccount(String ID) {
+        verifyAccountEntity(ID);
+        repository.deleteById(ID);
+    }
+    private static AccountEntity verifyAccountEntity(String ID) throws ResourceNotFoundException {
+        Optional<AccountEntity> accountEntity = repository.findById(ID);
+        System.out.println("accountEntity = "+accountEntity+", accountEntity.isEmpty = "+accountEntity.isEmpty());
+        if (accountEntity.isEmpty()) {
+            System.out.println("Nix gefunden");
+            throw new ResourceNotFoundException("Account with ID "+ID+" not found");
+        }
+        return accountEntity.get();
     }
 /*
 

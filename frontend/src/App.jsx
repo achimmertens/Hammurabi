@@ -14,14 +14,16 @@ class App extends React.Component {
     isLoaded: false,
     error: false,
     accountList: null,
-    data: []
+    data: [],
+    account: "nix"
     };
     this.handleChangeId = this.handleChangeId.bind(this);
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangeNickName = this.handleChangeNickName.bind(this);
     this.handleSubmitId = this.handleSubmitId.bind(this);
     this.handleSubmitName = this.handleSubmitName.bind(this);
-   }
+    this.handleGET = this.handleGET.bind(this);
+}
 
 componentDidMount() {
     this.handleAccounts()
@@ -32,8 +34,8 @@ const params = {
     method: 'GET',
     headers: {
         'accept': 'application/json'
-    }
-};
+        }
+    };
 	fetch("http://192.168.2.121:8080/api/accounts/",params)
 	        .then(response => response.json())
 	        //.then(response => response.blob())  //mutual exclusive with json
@@ -46,53 +48,88 @@ const params = {
 
                                     			})
             .catch(e => console.error(e));
+
 }
 
-    handleChangeId(event) {
-    this.setState({id: event.target.value});
-    }
+handleGET() {
+    const id = this.state.id
+    alert('The ID is: '+id);
+	console.log("handleGET: "+ "http://localhost:8080/api/account/" + id)
+	fetch("http://192.168.2.121:8080/api/account/" + id)
+			.then(res => res.json())
+			.then(
+				(result) => {
+					this.setState({
+					isLoaded: true,
+						account: (result)
+					})
+				},
+				(error) => {
+					this.setState({
+					    isLoaded: true,
+						error
+					});
+				}
+			)
 
-    handleChangeName(event) {
-     this.setState({name: event.target.value});
-     this.setState({logindate: new Date().toISOString()})
+
+
+}
+
+
+handleChangeId(event) {
+   this.setState({id: event.target.value});
+}
+
+handleChangeName(event) {
+   this.setState({name: event.target.value});
+   this.setState({logindate: new Date().toISOString()})
      // soll: 2022-07-26T06:26:01.489+00:00
      //ist toISOString: 2022-07-27T05:17:09.385Z
-    }
+     this.handleGET();
+}
 
-    handleChangeNickName(event) {
-      this.setState({nickname: event.target.value});
-    }
+handleChangeNickName(event) {
+   this.setState({nickname: event.target.value});
+}
 
-    handleSubmitId(event) {
-        alert('Your Id is: ' + this.state.id);
-        event.preventDefault();
-    }
+handleSubmitId(event) {
+    alert('Your Id is: ' + this.state.id);
+    event.preventDefault();
+}
 
-    handleSubmitName(event) {
-      alert('Your name is: ' + this.state.name);
-      event.preventDefault();
-      //const fetch = require('node-fetch');
-      const axios = require('axios')
-      let config = {
-          headers: {
-              "Content-Type": "application/json"
-          }
-      }
-      let data = {
-         "id": this.state.id,
-         "name": this.state.name,
-         "nickname": this.state.nickname,
-         "logindate":this.state.logindate
-      }
-      axios.post("http://192.168.2.121:8080/api/account",data,config)
-        .then(function (response) {
-          console.log(response);
-        })
-    }
+handleSubmitName(event) {
+   alert('Your name is: ' + this.state.name);
+   event.preventDefault();
+   //const fetch = require('node-fetch');
+   const axios = require('axios')
+   let config = {
+       headers: {
+           "Content-Type": "application/json"
+       }
+   }
+   let data = {
+      "id": this.state.id,
+      "name": this.state.name,
+      "nickname": this.state.nickname,
+      "logindate":this.state.logindate
+   }
+   axios.post("http://192.168.2.121:8080/api/account",data,config)
+     .then(function (response) {
+       console.log(response);
+     })
+}
 
-  render() {
-  const { error, isLoaded, data } = this.state;
-    return (
+render() {
+const { error, isLoaded, data, account } = this.state;
+const Button = (props) => {
+
+  return (
+
+    <button>{props.text}</button>
+
+  ); }
+  return (
     <div className="App">
         <form onSubmit={this.handleSubmitName}>
          <label>
@@ -103,22 +140,36 @@ const params = {
           Type in your nickname:
             <input value={this.state.nickname} onChange={this.handleChangeNickName} />
           </label>
-                <button type="submit" >senden</button>
+          <button type="submit" >senden</button>
         </form>
       <hr/>
+       <form >
+        <label>
+              ------------------ <br/>
+              Type in your Id:
+                       <input value={this.state.id} onChange={this.handleChangeId} />
+                       The rest of the content is: {this.state.id},{this.state.name}, {this.state.nickname}, {this.state.logindate}
+        </label>
+       <button type="button" id="btn1" onClick={this.handleGET.bind(this)} text="Einlesen" >Read</button>
+       <br/>
+       ID =        {JSON.stringify(this.state.account.id)} <br/>
+       NAME =     {JSON.stringify(this.state.account.name)} <br/>
+       NICKNAME =     {JSON.stringify(this.state.account.nickname)} <br/>
+       LOGINDATE =     {JSON.stringify(this.state.account.logindate)} <br/>
+      </form>
+      <hr/>
       The complete content is: {this.state.id}, {this.state.name}, {this.state.nickname}, {this.state.logindate}
-
       <hr/>
       <form onSubmit={this.handleAccounts}>
-      <label>
-      isLoaded = {JSON.stringify(this.state.isLoaded)} <br/>
-      error = {JSON.stringify(this.state.error)} <br/>
-      accountList = {JSON.stringify(this.state.accountList)}       <br/>
-    data = {this.state.data} <br/>
-    </label>
-    <button type="submit" >Refresh</button>
-    </form>
-          <hr/>
+          <label>
+              isLoaded = {JSON.stringify(this.state.isLoaded)} <br/>
+              error = {JSON.stringify(this.state.error)} <br/>
+              accountList = {JSON.stringify(this.state.accountList)}       <br/>
+              data = {this.state.data} <br/>
+          </label>
+          <button type="submit" >Refresh</button>
+      </form>
+      <hr/>
     </div>
 
     );
@@ -127,3 +178,6 @@ const params = {
 
 export default App;
 // See also https://reactjs.org/docs/forms.html
+// <button onClick={this.handleGET(this.state.id)} >Read</button>
+// <button onClick={() => this.handleGET(this.state.id)} >Read</button>
+// <button type="button" id="btn1" onClick={this.handleGET.bind(this)} text="Einlesen" >Read</button> verhindert, dass es permanent ausgeführt wird.

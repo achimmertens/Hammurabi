@@ -86,7 +86,7 @@ handleChangeName(event) {
    this.setState({logindate: new Date().toISOString()})
      // soll: 2022-07-26T06:26:01.489+00:00
      //ist toISOString: 2022-07-27T05:17:09.385Z
-     this.handleGET();
+    // this.handleGET();
 }
 
 handleChangeNickName(event) {
@@ -120,6 +120,22 @@ handleSubmitName(event) {
      })
 }
 
+handleDeleteAccount(event) {
+   alert('Attention!!! You are going to delete the Account of: ' + this.state.id);
+   event.preventDefault();
+   //const fetch = require('node-fetch');
+   const axios = require('axios')
+   let config = {
+       headers: {
+           "Content-Type": "application/json"
+       }
+   }
+   axios.delete("http://192.168.2.121:8080/api/delete/"+this.state.id,config)
+     .then(function (response) {
+       console.log(response);
+     })
+}
+
 render() {
 const { error, isLoaded, data, account } = this.state;
 const Button = (props) => {
@@ -140,7 +156,8 @@ const Button = (props) => {
           Type in your nickname:
             <input value={this.state.nickname} onChange={this.handleChangeNickName} />
           </label>
-          <button type="submit" >senden</button>
+          <button type="submit" >create</button>
+
         </form>
       <hr/>
        <form >
@@ -150,7 +167,8 @@ const Button = (props) => {
                        <input value={this.state.id} onChange={this.handleChangeId} />
                        The rest of the content is: {this.state.id},{this.state.name}, {this.state.nickname}, {this.state.logindate}
         </label>
-       <button type="button" id="btn1" onClick={this.handleGET.bind(this)} text="Einlesen" >Read</button>
+       <button type="button" id="btn1" onClick={this.handleGET.bind(this)} text="read" >Read</button>
+       <button type="button" id="btn2" onClick={this.handleDeleteAccount.bind(this)} text="delete" >DELETE</button>
        <br/>
        ID =        {JSON.stringify(this.state.account.id)} <br/>
        NAME =     {JSON.stringify(this.state.account.name)} <br/>

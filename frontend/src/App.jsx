@@ -1,6 +1,9 @@
 import React from 'react';
+import { Alert, Button, View, StyleSheet } from 'react-native';
+//If the module was not found execute:  npm install react-native-web
 //import Read from './Read.jsx';
 //import ReactDOM from 'react-dom';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -23,6 +26,11 @@ class App extends React.Component {
     this.handleSubmitId = this.handleSubmitId.bind(this);
     this.handleSubmitName = this.handleSubmitName.bind(this);
     this.handleGET = this.handleGET.bind(this);
+}
+
+simpleAlertFunction = () => {
+  //function to make simple alert
+  Alert.alert('Alert Title','This is Simple Alert');
 }
 
 componentDidMount() {
@@ -71,9 +79,6 @@ handleGET() {
 					});
 				}
 			)
-
-
-
 }
 
 
@@ -121,7 +126,19 @@ handleSubmitName(event) {
 }
 
 handleDeleteAccount(event) {
-   alert('Attention!!! You are going to delete the Account of: ' + this.state.id);
+Alert.alert(
+       //This is title
+      'Hello',
+        //This is body text
+      'This is two option alert.',
+      [
+        {text: 'Yes', onPress: () => console.log('Yes Pressed')},
+        {text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel'},
+      ],
+      { cancelable: false }
+      //on clicking out side, Alert will not dismiss
+    );
+
    event.preventDefault();
    //const fetch = require('node-fetch');
    const axios = require('axios')
@@ -139,11 +156,8 @@ handleDeleteAccount(event) {
 render() {
 const { error, isLoaded, data, account } = this.state;
 const Button = (props) => {
-
   return (
-
     <button>{props.text}</button>
-
   ); }
   return (
     <div className="App">
@@ -156,8 +170,7 @@ const Button = (props) => {
           Type in your nickname:
             <input value={this.state.nickname} onChange={this.handleChangeNickName} />
           </label>
-          <button type="submit" >create</button>
-
+          <button type="submit" >senden</button>
         </form>
       <hr/>
        <form >
@@ -189,7 +202,6 @@ const Button = (props) => {
       </form>
       <hr/>
     </div>
-
     );
   }
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Account} from '../account';
+import { AccountService } from '../account.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-accounts',
@@ -7,16 +9,25 @@ import {Account} from '../account';
   styleUrls: ['./accounts.component.css']
 })
 export class AccountsComponent implements OnInit {
-  account: Account = {
-    id: 1,
-    name: "Achim",
-    nickname: "Greensniper",
-    logindate: new Date('1997-07-16')
+  accounts: Account[]=[];
+  selectedAccount?: Account;
+
+  onSelect(account: Account): void {
+    this.selectedAccount = account;
+    this.messageService.add(`HeroesComponent: Selected hero id=${account.id}`);
   }
 
-  constructor() { }
+  
+  getAccounts(): void {
+    this.accountService.getAccounts()
+        .subscribe(accounts => this.accounts = accounts);
+  }
+
+ 
+  constructor(private accountService: AccountService, private messageService: MessageService) { }
 
   ngOnInit(): void {
+   this.getAccounts();
   }
 
 }

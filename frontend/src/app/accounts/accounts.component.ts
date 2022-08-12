@@ -8,9 +8,16 @@ import { MessageService } from '../message.service';
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.css']
 })
+
 export class AccountsComponent implements OnInit {
   accounts: Account[]=[];
   selectedAccount?: Account;
+  
+  constructor(private accountService: AccountService, private messageService: MessageService) { }
+
+  ngOnInit(): void {
+   this.getAccounts();
+  }
 
   onSelect(account: Account): void {
     this.selectedAccount = account;
@@ -24,10 +31,6 @@ export class AccountsComponent implements OnInit {
   }
 
  
-  constructor(private accountService: AccountService, private messageService: MessageService) { }
 
-  ngOnInit(): void {
-   this.getAccounts();
-  }
 
 }

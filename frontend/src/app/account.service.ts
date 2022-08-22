@@ -19,6 +19,13 @@ export class AccountService {
     return accounts;
   }
 
+  getAccount(id: number): Observable<Account> {
+    // For now, assume that a hero with the specified `id` always exists.
+    // Error handling will be added in the next step of the tutorial.
+    const account = ACCOUNTS.find(h => h.id === id)!;
+    this.messageService.add(`AccountService: fetched hero id=${id}`);
+    return of(account);
+  }
 
 /*
 getAccounts (): Observable<Account[]>{

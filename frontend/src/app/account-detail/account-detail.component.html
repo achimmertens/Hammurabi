@@ -1,1 +1,14 @@
-<p>account-detail works!</p>
+<div *ngIf="account">
+
+    <h2>{{account.name | uppercase}} Details</h2>
+    <div><span>id: </span>{{account.id}}</div>
+    <div>
+      <label for="account-name">Account name: </label>
+      <input id="account-name" [(ngModel)]="account.name" placeholder="name">
+      <label for="account-nickname"> Nickname: </label>
+      <input id="account-nickname" [(ngModel)]="account.nickname" placeholder="nickname">
+      <label for="account-logindate"> Logindate: </label>
+      <input id="account-logindate" [(ngModel)]="account.logindate" placeholder="logindate">
+    </div>
+    <button type="button" (click)="goBack()">go back</button>
+  </div>

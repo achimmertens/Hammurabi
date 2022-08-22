@@ -1,7 +1,10 @@
 <h2>{{title}}</h2>
+<router-outlet>
 <nav>
-    <a routerLink="/dashboard">Dashboard</a>
-    <a routerLink="/accounts">Accounts</a>
-  </nav>
+  <a routerLink="/dashboard">Dashboard</a>
+  <a routerLink="/accounts">Accounts</a>
+</nav>
+</router-outlet>
+<hr/>
 <app-accounts></app-accounts>
 <app-messages></app-messages>

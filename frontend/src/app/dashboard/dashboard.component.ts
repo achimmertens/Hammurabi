@@ -8,7 +8,7 @@ import { AccountService } from '../account.service';
   styleUrls: [ './dashboard.component.css' ]
 })
 export class DashboardComponent implements OnInit {
-  accounts: Account[] = [];
+  accounts: any;
 
   constructor(private accountService: AccountService) { }
 
@@ -18,6 +18,6 @@ export class DashboardComponent implements OnInit {
 
   getAccounts(): void {
     this.accountService.getAccounts()
-      .subscribe(accounts => this.accounts = accounts.slice(0, 5));
+      .subscribe(accounts => this.accounts = accounts);
   }
 }

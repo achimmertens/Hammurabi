@@ -1,10 +1,10 @@
 <h2>My Accounts</h2>
 <ul class="accounts">
   <li *ngFor="let account of accounts">
-    <button [class.selected]="account === selectedAccount" type="button" (click)="onSelect(account)">
+    
       <span class="badge">{{account.id}}</span>
       <span class="name">{{account.name}}</span>
-    </button>
+    
   </li>
 </ul>
 
@@ -12,7 +12,9 @@
   <h2>{{selectedAccount.name | uppercase}} Details</h2>
   <div>id: {{selectedAccount.id}}</div>
   <div>
-    <label for="hero-name">Hero name: </label>
-    <input id="hero-name" [(ngModel)]="selectedAccount.name" placeholder="name">
+    <label for="account-name">Account name: </label>
+    <input id="account-name" [(ngModel)]="selectedAccount.name" placeholder="name">
   </div>
+  <div>Nickname: {{selectedAccount.nickname}}</div>
+  <div>Logindate: {{selectedAccount.logindate}}</div>
 </div>

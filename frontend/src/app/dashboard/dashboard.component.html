@@ -7,3 +7,21 @@ Lorem Ipsum ...
   </a>
 </ul>
 
+<div class="heroes-menu">
+  <a *ngFor="let account of accounts"
+      routerLink="/detail/{{account.id}}">
+      {{account.name}}
+  </a>
+</div>
+
+<div>
+  id: {{accounts[0].content[0].id}}
+  name: {{accounts[0].content[0].name}}
+</div>
+
+<div *ngFor="let number of accounts[0].content, let x = index">
+  id: {{accounts[0].content[x].id}}
+  name: {{accounts[0].content[x].name}}
+  nickname: {{accounts[0].content[x].nickname}}
+  logindate: {{accounts[0].content[x].logindate}}
+</div>

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Account} from '../account';
+import { Level1 } from '../level1';
 import { AccountService } from '../account.service';
-//import { MessageService } from '../message.service';
+import { MessageService } from '../message.service';
 //import { Observable } from 'rxjs';
 
 @Component({
@@ -11,56 +12,58 @@ import { AccountService } from '../account.service';
 })
 
 export class AccountsComponent implements OnInit {
-  accounts: Account[]=[];
+  accounts: any; // accounts: Account[]=[] doesn't work, because then "content[]" is not found in html
+  content: Level1[]=[];
   selectedAccount?: Account;
   
-  constructor(private accountService: AccountService) { }
+  constructor(private accountService: AccountService, private messageService: MessageService) { }
 
   ngOnInit(): void {
    this.getAccounts();
+   this.getContent();
   }
 
-  /*
+  
   onSelect(account: Account): void {
     this.selectedAccount = account;
-    this.messageService.add(`HeroesComponent: Selected hero id=${account.id}`);
+    this.messageService.add(`AccountsComponent: Selected hero id=${account.id}`);
   }
-  */
-
-  /*
-  getAccounts(): void {
-    this.accountService.getAccounts()
-        .subscribe(accounts => this.accounts = accounts);
-  }
-*/
+  
 
 getAccounts(): void {
   this.accountService.getAccounts()
-  .subscribe(accounts => this.accounts = accounts);
+  .subscribe(accounts => this.accounts= accounts);
 }
 
-
+getContent(): void {
+  this.accountService.getLevel1()
+  .subscribe(content => this.content= content);
 }
 
 /*
-<h2>My Accounts</h2>
-<ul class="accounts">
-  <li *ngFor="let account of accounts">
-    <button [class.selected]="account === selectedAccount" type="button" (click)="onSelect(account)">
-      <span class="badge">{{account.id}}</span>
-      <span class="name">{{account.name}}</span>
-    </button>
-  </li>
-</ul>
+add(name: string): void {
+  name = name.trim();
+  if (!name) { return; }
+  this.accountService.addAccount({ name } as Account)
+    .subscribe(hero => {
+      this.accounts.push(hero);
+    });
+}
 
-<div *ngIf="selectedAccount">
-  <h2>{{selectedAccount.name | uppercase}} Details</h2>
-  <div>id: {{selectedAccount.id}}</div>
-  <div>
-    <label for="account-name">Account name: </label>
-    <input id="account-name" [(ngModel)]="selectedAccount.name" placeholder="name">
-  </div>
-  <div>Nickname: {{selectedAccount.nickname}}</div>
-  <div>Logindate: {{selectedAccount.logindate}}</div>
-</div>
+
+add(account: Account): void {
+  if (!account) { return; }
+  this.accountService.addAccount(account)
+    .subscribe(account => {
+      this.accounts[0].push(account);
+    });
+}
+
+/*
+delete(account: Account): void {
+  this.accounts = this.accounts.filter(h => h !== account);
+  this.accountService.deleteAccount(account.id).subscribe();
+}
 */
+
+}

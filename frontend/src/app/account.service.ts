@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Account } from './account';
 import { MessageService } from './message.service';
+import { Level1 } from './level1';
 
 @Injectable({
   providedIn: 'root'
@@ -19,24 +20,67 @@ export class AccountService {
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    ) {  }
 
   /** GET accounts from the server */
   getAccounts(): Observable<Account[]> {
-    return this.http.get<Account[]>(this.accountsUrl)
-      .pipe(
-        tap(_ => this.log('fetched accounts')),
-        catchError(this.handleError<Account[]>('getAccounts', []))
-      );
+    //var content:Level1[]=[];
+    var content:any;
+     content=this.http.get<Account[]>(this.accountsUrl)
+    .pipe(
+      tap(_ => this.log('fetched accounts')),
+      catchError(this.handleError<Account[]>('getAccounts', []))
+    );
+    this.log("Der Inhalt von content ist:"+JSON.stringify(content));
+
+       return content;
+  }
+  getLevel1(): Observable<Level1[]> {
+    //var content:Level1[]=[];
+    var content:any;
+    content=this.http.get<Level1[]>(this.accountsUrl)
+    .pipe(
+      tap(_ => this.log('fetched accounts')),
+      catchError(this.handleError<Level1[]>('getLevel1', []))
+    );
+    this.log("Der Inhalt von Content ist:"+JSON.stringify(content));
+    
+    return JSON.parse(content[0]);
   }
 
   getAccount(id: number): Observable<Account> {
     const url = `${this.accountUrl}/${id}`;
     return this.http.get<Account>(url).pipe(
-      tap(_ => this.log(`fetched hero id=${id}`)),
+      tap(_ => this.log(`fetched account id=${id}`)),
       catchError(this.handleError<Account>(`getAccount id=${id}`))
     );
   }
+
+//////// Save methods //////////
+
+  /** POST: add a new account to the server */
+  addAccount(account: Account): Observable<Account> {
+    return this.http.post<Account>(this.accountsUrl, account, this.httpOptions).pipe(
+      tap((newAccount: Account) => this.log(`added account w/ id=${newAccount.id}`)),
+      catchError(this.handleError<Account>('addAccount'))
+    );
+  }
+
+  /** DELETE: delete the account from the server */
+  deleteAccount(id: number): Observable<Account> {
+    const url = `${this.accountUrl}/${id}`;
+
+    return this.http.delete<Account>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`deleted account id=${id}`)),
+      catchError(this.handleError<Account>('deleteAccount'))
+    );
+  }
+
+
+
+
+
 
   /**
    * Handle Http operation that failed.

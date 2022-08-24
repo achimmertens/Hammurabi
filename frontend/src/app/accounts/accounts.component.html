@@ -1,12 +1,18 @@
 <h2>My Accounts</h2>
+{{accounts[0].content[0].id}}
+
 <ul class="accounts">
-  <li *ngFor="let account of accounts">
-    
-      <span class="badge">{{account.id}}</span>
-      <span class="name">{{account.name}}</span>
-    
+  <li *ngFor="let account of accounts[0].content, let x=index">
+    <a routerLink="/detail/{{account.id}}">
+     
+      
+        <span class="badge">ID: {{account.id}}</span> Name: {{account.name}}, NickName: {{account.nickname}}, Logindate: {{account.logindate}}
+      
+    </a>
   </li>
-</ul>
+
+
+
 
 <div *ngIf="selectedAccount">
   <h2>{{selectedAccount.name | uppercase}} Details</h2>
@@ -18,3 +24,7 @@
   <div>Nickname: {{selectedAccount.nickname}}</div>
   <div>Logindate: {{selectedAccount.logindate}}</div>
 </div>
+
+
+
+

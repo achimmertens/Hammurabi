@@ -34,12 +34,12 @@ export class AccountDetailComponent implements OnInit {
     this.accountService.getAccount(id)
     .subscribe(account => this.account = account);
   }
-  /*
+  
   save(): void {
     if (this.account) {
-      this.accountService.updateAccount(this.account)
+      this.accountService.addAccount(this.account)
         .subscribe(() => this.goBack());
     }
   }
- */
+ 
 }

@@ -15,7 +15,9 @@ export class AccountService {
   private accountUrl = "http://192.168.2.121:8080/api/account"
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+    'Accept': '*/*'  
+  })
   };
 
   constructor(
@@ -60,12 +62,44 @@ export class AccountService {
 //////// Save methods //////////
 
   /** POST: add a new account to the server */
+  /*
   addAccount(account: Account): Observable<Account> {
-    return this.http.post<Account>(this.accountsUrl, account, this.httpOptions).pipe(
+    const url = `${this.accountUrl}/${account.id}`;
+    return this.http.post<Account>(url, account, this.httpOptions).pipe(
       tap((newAccount: Account) => this.log(`added account w/ id=${newAccount.id}`)),
       catchError(this.handleError<Account>('addAccount'))
     );
   }
+  addPerson(person:Person): Observable<any> {
+    const headers = { 'content-type': 'application/json'}  
+    const body=JSON.stringify(person);
+    console.log(body)
+    return this.http.post(this.baseURL + 'people', body,{'headers':headers})
+  }
+  */
+
+  addAccount(account:Account): Observable<any> {
+    //const headers = { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accept':'*/*'}  
+    //const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    // 'Access-Control-Allow-Origin', '*', 'Accept':'*/*'); 
+ 
+
+    var headers = new Headers({
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+  });
+    const body=JSON.stringify(account);
+    const url = `${this.accountUrl}`;
+    console.log("Der Body vom Post lautet:"+body);
+    return this.http.post(url, body,this.httpOptions)
+    .pipe(
+      catchError((err) => {
+        console.error(err);
+        throw err;
+      }
+    ))
+  }
+
 
   /** DELETE: delete the account from the server */
   deleteAccount(id: number): Observable<Account> {

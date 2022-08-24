@@ -13,6 +13,7 @@ export class AccountService {
 
   private accountsUrl = "http://192.168.2.121:8080/api/accounts"
   private accountUrl = "http://192.168.2.121:8080/api/account"
+  private deleteUrl = "http://192.168.2.121:8080/api/delete"
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
@@ -103,7 +104,7 @@ export class AccountService {
 
   /** DELETE: delete the account from the server */
   deleteAccount(id: number): Observable<Account> {
-    const url = `${this.accountUrl}/${id}`;
+    const url = `${this.deleteUrl}/${id}`;
 
     return this.http.delete<Account>(url, this.httpOptions).pipe(
       tap(_ => this.log(`deleted account id=${id}`)),

@@ -7,7 +7,8 @@
      
       
         <span class="badge">ID: {{account.id}}</span> Name: {{account.name}}, NickName: {{account.nickname}}, Logindate: {{account.logindate}}
-      
+        <button type="button" class="delete" title="delete account"
+        (click)="delete(account)">x</button>
     </a>
   </li>
 

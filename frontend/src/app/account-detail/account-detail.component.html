@@ -3,6 +3,8 @@
     <h2>{{account.name | uppercase}} Details</h2>
     <div><span>id: </span>{{account.id}}</div>
     <div>
+      <label for="account-id">Account ID: </label>
+      <input id="account-id" [(ngModel)]="account.id" placeholder="id">
       <label for="account-name">Account name: </label>
       <input id="account-name" [(ngModel)]="account.name" placeholder="name">
       <label for="account-nickname"> Nickname: </label>

@@ -40,6 +40,11 @@ getContent(): void {
   .subscribe(content => this.content= content);
 }
 
+delete(account: Account): void {
+  //this.accounts = this.accounts.filter(h => h !== account);
+  this.accountService.deleteAccount(account.id).subscribe();
+}
+
 /*
 add(name: string): void {
   name = name.trim();
@@ -59,11 +64,8 @@ add(account: Account): void {
     });
 }
 
-/*
-delete(account: Account): void {
-  this.accounts = this.accounts.filter(h => h !== account);
-  this.accountService.deleteAccount(account.id).subscribe();
-}
 */
+
+
 
 }

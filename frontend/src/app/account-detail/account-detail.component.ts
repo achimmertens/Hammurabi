@@ -10,10 +10,14 @@ import { AccountService } from '../account.service';
   styleUrls: ['./account-detail.component.css']
 })
 export class AccountDetailComponent implements OnInit {
-  @Input() account?: Account;
+ // @Input() account?: Account;
+  account: Account | undefined;
   
 
-  constructor( private route: ActivatedRoute,   private location: Location, private accountService:AccountService) { 
+  constructor( 
+    private route: ActivatedRoute,   
+    private location: Location, 
+    private accountService:AccountService) { 
 
   }
 
@@ -30,5 +34,12 @@ export class AccountDetailComponent implements OnInit {
     this.accountService.getAccount(id)
     .subscribe(account => this.account = account);
   }
-
+  /*
+  save(): void {
+    if (this.account) {
+      this.accountService.updateAccount(this.account)
+        .subscribe(() => this.goBack());
+    }
+  }
+ */
 }

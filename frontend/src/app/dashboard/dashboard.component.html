@@ -1,23 +1,11 @@
-<h2>Game Menu</h2>
-<h3> Game Rules:</h3>
+<h2>Menu</h2>
+<h3> Rules:</h3>
 Lorem Ipsum ...
 <ul class="accounts-menu">
   <a *ngFor="let number of [].constructor(5), let x = index">
     {{accounts[0].content[x].name}}
   </a>
 </ul>
-
-<div class="heroes-menu">
-  <a *ngFor="let account of accounts"
-      routerLink="/detail/{{account.id}}">
-      {{account.name}}
-  </a>
-</div>
-
-<div>
-  id: {{accounts[0].content[0].id}}
-  name: {{accounts[0].content[0].name}}
-</div>
 
 <div *ngFor="let number of accounts[0].content, let x = index">
   id: {{accounts[0].content[x].id}}

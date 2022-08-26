@@ -1,15 +1,16 @@
 <h2>My Accounts</h2>
-{{accounts[0].content[0].id}}
+Die Account-ID vom ersten Datensatz lautet: {{accounts[0].content[0].id}}
 
 <ul class="accounts">
-  <li *ngFor="let account of accounts[0].content, let x=index">
+  <li *ngFor="let account of accounts[0].content">
     <a routerLink="/detail/{{account.id}}">
-     
+   
       
         <span class="badge">ID: {{account.id}}</span> Name: {{account.name}}, NickName: {{account.nickname}}, Logindate: {{account.logindate}}
-        <button type="button" class="delete" title="delete account"
-        (click)="delete(account)">x</button>
+
     </a>
+    <button type="button" class="delete" title="delete account"
+    (click)="delete(account)">x</button>
   </li>
 
 

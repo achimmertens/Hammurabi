@@ -1,8 +1,6 @@
 <div *ngIf="account">
-
     <h2>{{account.name | uppercase}} Details</h2>
-  
-    <div>
+      <div>
       <label for="account-id">Account ID: </label>
       <input id="account-id" [(ngModel)]="account.id" placeholder="id">
       <label for="account-name">Account name: </label>

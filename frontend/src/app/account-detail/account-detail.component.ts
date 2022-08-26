@@ -13,12 +13,10 @@ export class AccountDetailComponent implements OnInit {
  // @Input() account?: Account;
   account: Account | undefined;
   
-
   constructor( 
     private route: ActivatedRoute,   
     private location: Location, 
     private accountService:AccountService) { 
-
   }
 
   ngOnInit(): void {
@@ -41,5 +39,4 @@ export class AccountDetailComponent implements OnInit {
         .subscribe(() => this.goBack());
     }
   }
- 
 }

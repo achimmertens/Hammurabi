@@ -13,6 +13,8 @@ export class AccountService {
   private accountsUrl = "http://192.168.2.121:8080/api/accounts"
   private accountUrl = "http://192.168.2.121:8080/api/account"
   private deleteUrl = "http://192.168.2.121:8080/api/delete"
+  private hiveBlogUrl = "https://api.hive.blog"
+  private postContent = "{\"jsonrpc\":\"2.0\", \"method\":\"condenser_api.get_discussions_by_author_before_date\", \"params\":[\"achimmertens\",\"\",\"\",3], \"id\":1}";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -27,7 +29,7 @@ export class AccountService {
 
   /** GET accounts from the server */
   getAccounts(): Observable<Account[]> {
-    //var content:Level1[]=[];
+    //var content:Account[]=[];
     var content: any;
     content = this.http.get<Account[]>(this.accountsUrl)
       .pipe(
@@ -85,6 +87,38 @@ export class AccountService {
     );
   }
 
+  /** -------------------------- Hive Methods --------------------------
+   *  Hive is a Social Media Blockchain. Here we search their API for some transactions
+   */
+  /** GET last logindate in Hive for an Account */
+  getLogindate(): Observable<any> {
+    //var content:Account[]=[];
+    const body = JSON.stringify('{"jsonrpc":"2.0", "method":"condenser_api.get_discussions_by_author_before_date", "params":["achimmertens","","",3], "id":1}');
+    var content: any;
+    const url = "https://api.hive.blog";  //const url = `${this.hiveBlogUrl}`;
+    console.log("Die url lautet: "+ url);
+    console.log("Der Body vom Post lautet: " + body);
+    console.log("Die httpOptions sind: " + this.httpOptions.headers);
+    /* content = this.http.post(url, body, this.httpOptions)   
+    .pipe(
+      catchError((err) => {
+        console.error(err);
+        throw err;
+      }
+      ))
+    this.log("Der Inhalt von content ist:" + JSON.stringify(content));
+    */
+  return this.http.post(url, body, this.httpOptions)   
+  .pipe(
+    catchError((err) => {
+      console.error(err);
+      throw err;
+    }
+    ));
+}
+
+/* Todo: GetUpvoters
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.
@@ -111,4 +145,5 @@ export class AccountService {
   private log(message: string) {
     this.messageService.add(`AccountService: ${message}`);
   }
+
 }

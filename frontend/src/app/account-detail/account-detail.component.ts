@@ -39,4 +39,10 @@ export class AccountDetailComponent implements OnInit {
         .subscribe(() => this.goBack());
     }
   }
+
+  getLogindate(): void {
+    //const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.accountService.getLogindate();
+    //.subscribe(account => this.account = account);
+  }
 }

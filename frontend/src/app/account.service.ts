@@ -67,8 +67,12 @@ export class AccountService {
   /** POST: add a new account to the server */
   addAccount(account: Account): Observable<any> {
     const body = JSON.stringify(account);
-    const url = `${this.accountUrl}`;
-    console.log("Der Body vom Post lautet:" + body);
+    //const body = '{"id":"0","name":"Dummy","nickname":"Achim was here","logindate":"2022-07-27T10:04:29.663Z"}';
+    //const url = `${this.accountUrl}`;
+    const url = "http://192.168.2.121:8080/api/account";
+    console.log("Die url lautet: "+ url);
+    console.log("Der Body vom Post lautet: " + body);
+    console.log("Die httpOptions sind: " + JSON.stringify(this.httpOptions));
     return this.http.post(url, body, this.httpOptions)
       .pipe(
         catchError((err) => {
@@ -93,22 +97,17 @@ export class AccountService {
   /** GET last logindate in Hive for an Account */
   getLogindate(): Observable<any> {
     //var content:Account[]=[];
-    const body = JSON.stringify('{"jsonrpc":"2.0", "method":"condenser_api.get_discussions_by_author_before_date", "params":["achimmertens","","",3], "id":1}');
-    var content: any;
+    const body = {"jsonrpc":"2.0", "method":"condenser_api.get_discussions_by_author_before_date", "params":["achimmertens","","",3], "id":1};
+    //const body = '{"id":"0","name":"Dummy","nickname":"Achim was here","logindate":"2022-07-27T10:04:29.663Z"}';
+    //var content: any;
     const url = "https://api.hive.blog";  //const url = `${this.hiveBlogUrl}`;
+    //const url = "http://192.168.2.121:8080/api/account";
     console.log("Die url lautet: "+ url);
     console.log("Der Body vom Post lautet: " + body);
-    console.log("Die httpOptions sind: " + this.httpOptions.headers);
-    /* content = this.http.post(url, body, this.httpOptions)   
-    .pipe(
-      catchError((err) => {
-        console.error(err);
-        throw err;
-      }
-      ))
-    this.log("Der Inhalt von content ist:" + JSON.stringify(content));
-    */
-  return this.http.post(url, body, this.httpOptions)   
+    console.log("Die httpOptions sind: " + JSON.stringify(this.httpOptions));
+    //content = this.http.post(url, body, this.httpOptions)   
+     //     this.log("Der Inhalt von content ist:" + JSON.stringify(content)); 
+  return this.http.post(url, body, this.httpOptions)
   .pipe(
     catchError((err) => {
       console.error(err);

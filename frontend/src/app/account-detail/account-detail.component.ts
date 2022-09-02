@@ -42,7 +42,7 @@ export class AccountDetailComponent implements OnInit {
 
   getLogindate(): void {
     //const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.accountService.getLogindate();
-    //.subscribe(account => this.account = account);
+    this.accountService.getLogindate()
+    .subscribe(() => this.goBack());
   }
 }

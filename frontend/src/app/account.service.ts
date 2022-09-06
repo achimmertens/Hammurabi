@@ -96,21 +96,12 @@ export class AccountService {
    */
   /** GET last logindate in Hive for an Account */
   getLogindate(name:string): Observable<any> {
-    //var content:Account[]=[];
-    const bodyx = {"jsonrpc":"2.0", "method":"condenser_api.get_discussions_by_author_before_date", "params":["achimmertens","","",3], "id":1};
     const body = {"jsonrpc":"2.0", "method":"condenser_api.get_discussions_by_author_before_date", "params":["loginname","","",3], "id":1};
     const body2 = JSON.stringify(body).replace('loginname', `${name}`);
-    const body3 = JSON.parse(body2);
-
-    //const body = '{"id":"0","name":"Dummy","nickname":"Achim was here","logindate":"2022-07-27T10:04:29.663Z"}';
-    //var content: any;
-    const url = "https://api.hive.blog";  //const url = `${this.hiveBlogUrl}`;
-    //const url = "http://192.168.2.121:8080/api/account";
+    const url = `${this.hiveBlogUrl}`; //const url = "https://api.hive.blog"; 
     console.log("Die url lautet: "+ url);
     console.log("Der Body vom Post lautet: " + JSON.stringify(body2));
     console.log("Die httpOptions sind: " + JSON.stringify(this.httpOptions));
-    //content = this.http.post(url, body, this.httpOptions)   
-     //     this.log("Der Inhalt von content ist:" + JSON.stringify(content)); 
   return this.http.post(url, body2, this.httpOptions)
   .pipe(
     catchError((err) => {

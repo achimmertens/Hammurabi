@@ -1,15 +1,25 @@
-<h2>Menu</h2>
-<h3> Rules:</h3>
-Lorem Ipsum ...
-<ul class="accounts-menu">
-  <a *ngFor="let number of [].constructor(5), let x = index">
-    {{accounts[0].content[x].name}}
-  </a>
-</ul>
+<header class="masthead">
+  <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+    <div class="d-flex justify-content-center">
+      <div class="text-center">
 
-<div *ngFor="let number of accounts[0].content, let x = index">
-  id: {{accounts[0].content[x].id}}
-  name: {{accounts[0].content[x].name}}
-  nickname: {{accounts[0].content[x].nickname}}
-  logindate: {{accounts[0].content[x].logindate}}
-</div>
+        <h2>Menu</h2>
+        <h3> Rules:</h3>
+        Lorem Ipsum ...
+        <ul class="accounts-menu">
+          <a *ngFor="let number of [].constructor(5), let x = index">
+            {{accounts[0].content[x].name}}
+          </a>
+        </ul>
+
+        <div *ngFor="let number of accounts[0].content, let x = index">
+          id: {{accounts[0].content[x].id}}
+          name: {{accounts[0].content[x].name}}
+          nickname: {{accounts[0].content[x].nickname}}
+          logindate: {{accounts[0].content[x].logindate}}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</header>

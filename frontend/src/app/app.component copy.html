@@ -29,7 +29,7 @@
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
                             <nav>
-                                <a class="nav-link" routerLink="/dashboard" href="#outlet">Dashboard</a>
+                                <a class="nav-link" routerLink="/dashboard" href="#projects">Dashboard</a>
                               </nav>
                         </li>
                         <li class="nav-item">
@@ -43,11 +43,19 @@
                 </div>
             </div>
         </nav>
-     
-        
 
-        <router-outlet></router-outlet>
-       
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+                <div class="d-flex justify-content-center">
+                    <div class="text-center">
+                        <h1 class="mx-auto my-0 text-uppercase">Hammurabi</h1>
+                        <h2 class="text-white-50 mx-auto mt-2 mb-5">A small round based survival game, which includes Hive based content.</h2>
+                        <a class="btn btn-primary" href="#about">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </header>
         <!-- About-->
         <section class="about-section text-center" id="about">
             <div class="container px-4 px-lg-5">
@@ -65,7 +73,7 @@
             </div>
         </section>
 
-
+        <router-outlet></router-outlet>
 
         <!-- Projects-->
         <section class="projects-section bg-light" id="projects">

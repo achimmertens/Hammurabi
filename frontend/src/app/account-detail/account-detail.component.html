@@ -14,3 +14,6 @@
     <button type="button" (click)="save()">save</button>
     <button type="button" (click)="getLogindate()">get Hive lastlogindate</button>
   </div>
+  <div *ngIf="hiveBlog">
+    hiveBlog: {{hiveBlog.result[0].created}}
+  </div>

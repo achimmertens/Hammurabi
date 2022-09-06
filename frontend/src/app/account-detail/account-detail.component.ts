@@ -12,6 +12,8 @@ import { AccountService } from '../account.service';
 export class AccountDetailComponent implements OnInit {
  // @Input() account?: Account;
   account: Account | undefined;
+  hiveBlog: any =[];
+
   
   constructor( 
     private route: ActivatedRoute,   
@@ -41,9 +43,15 @@ export class AccountDetailComponent implements OnInit {
   }
 
   getLogindate(): void {
+  
     if (this.account) {
       this.accountService.getLogindate(this.account.name)
-        .subscribe(() => this.goBack());
+        //.subscribe(() => this.goBack());
+        .subscribe((xxx) => 
+        {
+          this.hiveBlog = (xxx)
+          console.log('this.hiveBlog: ',this.hiveBlog)
+        });
     }
   }
 }

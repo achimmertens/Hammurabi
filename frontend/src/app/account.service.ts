@@ -102,10 +102,6 @@ export class AccountService {
     const body2 = JSON.stringify(body).replace('loginname', `${name}`);
     const body3 = JSON.parse(body2);
 
-
-  
-  
-
     //const body = '{"id":"0","name":"Dummy","nickname":"Achim was here","logindate":"2022-07-27T10:04:29.663Z"}';
     //var content: any;
     const url = "https://api.hive.blog";  //const url = `${this.hiveBlogUrl}`;
@@ -151,11 +147,6 @@ export class AccountService {
   /** Log a AccountService message with the MessageService */
   private log(message: string) {
     this.messageService.add(`AccountService: ${message}`);
-  }
-
-  cleanString(str:String) {
-    str = str.replace('name', 'achimmertens');
-  return str;
   }
 
 }

@@ -1,4 +1,4 @@
-/* AccountDetailComponent's private CSS styles */
+/* AccountDetailComponent's private CSS styles 
 label {
     color: #435960;
     font-weight: bold;
@@ -24,6 +24,19 @@ label {
     cursor: auto;
   }
 
-  
+  */
+
+  .button {
+    display: inline-block;
+    padding: 0.35em 0.65em;
+    font-size: 0.75em;
+    font-weight: 700;
+    line-height: 1;
+    color: rgb(33, 6, 6);
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+  }
   
   

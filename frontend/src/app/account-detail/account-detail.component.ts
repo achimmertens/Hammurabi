@@ -43,8 +43,7 @@ export class AccountDetailComponent implements OnInit {
   }
 
   getLogindate(): void {
-  
-    if (this.account) {
+      if (this.account) {
       this.accountService.getLogindate(this.account.name)
         //.subscribe(() => this.goBack());
         .subscribe((xxx) => 

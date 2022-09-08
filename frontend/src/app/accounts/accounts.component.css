@@ -4,6 +4,8 @@
   list-style-type: none;
   padding: 0;
   width: 50em;
+  /*color: rgb(19, 159, 115);*/
+  color: #64a19d;
 }
 
 input {

@@ -16,7 +16,7 @@
     <button class="button" type="button" (click)="getLogindate()">get Hive lastlogindate</button>
   </div>
   <div class="badge" *ngIf="hiveBlog">
-    hiveBlog: {{hiveBlog.result[0].created}}
+    <p> Creationdate of last hiveBlog: {{hiveBlog.result[0].created}} </p>
   </div>
 </section>
 

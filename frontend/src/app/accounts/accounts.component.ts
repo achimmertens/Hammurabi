@@ -20,7 +20,6 @@ export class AccountsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAccounts();
-    //this.getContent();
   }
 
   onSelect(account: Account): void {
@@ -33,12 +32,6 @@ export class AccountsComponent implements OnInit {
       .subscribe(accounts => this.accounts = accounts);
   }
 
-  /* 
-  getContent(): void {
-    this.accountService.getLevel1()
-    .subscribe(content => this.content= content);
-  }
-   */
 
   delete(account: Account): void {
     //this.accounts = this.accounts.filter(h => h !== account);  // Doesn't work with accounts:any, we need accounts: Account[]=[]

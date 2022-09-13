@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Account } from './account';
 import { MessageService } from './message.service';
+import { HiveBlog } from './hive-blog';
 import { Level1 } from './level1';
 
 @Injectable({
@@ -95,14 +96,16 @@ export class AccountService {
    *  Hive is a Social Media Blockchain. Here we search their API for some transactions
    */
   /** GET last logindate in Hive for an Account */
-  getLogindate(name:string): Observable<any> {
+  getLogindate(name:string): Observable<HiveBlog> {
+    //const hiveBlog: HiveBlog[]=[];
     const body = {"jsonrpc":"2.0", "method":"condenser_api.get_discussions_by_author_before_date", "params":["loginname","","",3], "id":1};
     const body2 = JSON.stringify(body).replace('loginname', `${name}`);
     const url = `${this.hiveBlogUrl}`; //const url = "https://api.hive.blog"; 
     console.log("Die url lautet: "+ url);
     console.log("Der Body vom Post lautet: " + JSON.stringify(body2));
     console.log("Die httpOptions sind: " + JSON.stringify(this.httpOptions));
-  return this.http.post(url, body2, this.httpOptions)
+  //return this.http.post(url, body2, this.httpOptions)
+  return this.http.post<HiveBlog>(url, body2, this.httpOptions)
   .pipe(
     catchError((err) => {
       console.error(err);

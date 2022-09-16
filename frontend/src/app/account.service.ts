@@ -97,7 +97,6 @@ export class AccountService {
    */
   /** GET last logindate in Hive for an Account */
   getLogindate(name:string): Observable<HiveBlog> {
-    //const hiveBlog: HiveBlog[]=[];
     const body = {"jsonrpc":"2.0", "method":"condenser_api.get_discussions_by_author_before_date", "params":["loginname","","",3], "id":1};
     const body2 = JSON.stringify(body).replace('loginname', `${name}`);
     const url = `${this.hiveBlogUrl}`; //const url = "https://api.hive.blog"; 

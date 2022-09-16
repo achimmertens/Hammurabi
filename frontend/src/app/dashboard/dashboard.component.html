@@ -1,25 +1,42 @@
 <header class="masthead">
+
+
+
+
   <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
     <div class="d-flex justify-content-center">
       <div class="text-center">
 
         <h2>Menu</h2>
         <h3> Rules:</h3>
-        Lorem Ipsum ...
-        <ul class="accounts-menu">
-          <a *ngFor="let number of [].constructor(5), let x = index">
-            {{accounts[0].content[x].name}}
-          </a>
-        </ul>
-
-        <div *ngFor="let number of accounts[0].content, let x = index">
-          id: {{accounts[0].content[x].id}}
-          name: {{accounts[0].content[x].name}}
-          nickname: {{accounts[0].content[x].nickname}}
-          logindate: {{accounts[0].content[x].logindate}}
+        <p>You are the King of a nation, that needs food and health. Care for it and it will grow and bring you lots of
+          honour.</p>
+        <p>When you login with your Hive-Name, you can get some good benefits to help your folk. But you can also use another name.</p>
+        <br>
+    
+        <div class="text-center" *ngIf="account">
+          <p> Please type in your Name: </p>
+          <label for="account-name">Account name: </label>
+          <input id="account-name" [(ngModel)]="account.name" placeholder="name">
+          <a routerLink="/game/{{account.id}}">
+          <button class="button" type="button" (click)="startGame(account)">Start Game</button>
+        </a>
         </div>
 
+      <ul class="accounts-menu">
+        <a *ngFor="let number of [].constructor(5), let x = index">
+          {{accounts[0].content[x].name}}
+        </a>
+      </ul>
+
+      <div class="text-center" *ngFor="let number of accounts[0].content, let x = index">
+        id: {{accounts[0].content[x].id}}
+        name: {{accounts[0].content[x].name}}
+        nickname: {{accounts[0].content[x].nickname}}
+        logindate: {{accounts[0].content[x].logindate}}
       </div>
+
     </div>
   </div>
+</div>
 </header>

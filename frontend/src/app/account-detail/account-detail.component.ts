@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class AccountDetailComponent implements OnInit {
   account: Account | undefined;
-  hiveBlog: HiveBlog | undefined
+  hiveBlog: HiveBlog | undefined;
   utcDate: number = 0;
 
   constructor(

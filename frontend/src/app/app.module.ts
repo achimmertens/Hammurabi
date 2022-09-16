@@ -8,6 +8,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
+import { GameComponent } from './game/game.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
     AccountsComponent,
     AccountDetailComponent,
     MessagesComponent,
-    DashboardComponent
+    DashboardComponent,
+    GameComponent
   ],
   imports: [
     BrowserModule,

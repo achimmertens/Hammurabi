@@ -7,7 +7,7 @@ export interface HiveAccount {
     id: number;
 }
 
-export interface Result {
+interface Result {
     accounts: Accounts[];
 }
 
@@ -75,44 +75,32 @@ interface Accounts {
     governance_vote_expiration_ts: string;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-/*
-export interface RootObject {
-    profile: Profile;
-}
-*/
-export interface Balance {
+interface Balance {
     amount: string;
     precision: number;
     nai: string;
 }
-export interface Votingmanabar {
+interface Votingmanabar {
     current_mana: string;
     last_update_time: number;
 }
-export interface Owner {
+interface Owner {
     weight_threshold: number;
     account_auths: any[];
     key_auths: (number | string)[][];
 }
 
-export interface Posting {
+interface Posting {
     weight_threshold: number;
     account_auths: (number | string)[][];
     key_auths: (number | string)[][];
 }
 
 export interface Profile {
+    profile: ProfileObject;
+  }
+
+interface ProfileObject {
     profile_image: string;
     name: string;
     location: string;

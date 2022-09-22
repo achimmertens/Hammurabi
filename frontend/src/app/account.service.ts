@@ -5,6 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Account } from './account';
 import { MessageService } from './message.service';
 import { HiveBlog } from './hive-blog';
+import {HiveAccount} from './hive-account';
 import { Level1 } from './level1';
 
 @Injectable({
@@ -111,6 +112,23 @@ export class AccountService {
       throw err;
     }
     ));
+}
+
+getLoginImage(name:string): Observable<HiveAccount> {
+  const body = {"jsonrpc":"2.0", "method":"database_api.find_accounts", "params": {"accounts":["loginname"]}, "id":1};
+  const body2 = JSON.stringify(body).replace('loginname', `${name}`);
+  const url = `${this.hiveBlogUrl}`; //const url = "https://api.hive.blog"; 
+  console.log("Die url lautet: "+ url);
+  console.log("Der Body vom Post lautet: " + JSON.stringify(body2));
+  console.log("Die httpOptions sind: " + JSON.stringify(this.httpOptions));
+//return this.http.post(url, body2, this.httpOptions)
+return this.http.post<HiveAccount>(url, body2, this.httpOptions)
+.pipe(
+  catchError((err) => {
+    console.error(err);
+    throw err;
+  }
+  ));
 }
 
 /* Todo: GetUpvoters

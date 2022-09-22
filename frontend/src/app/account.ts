@@ -4,4 +4,5 @@ export interface Account {
     nickname: string;
     logindate: Date;
     profileImage: string;
+    about:string;
 }

@@ -1,6 +1,8 @@
 <section class="about-section text-center" id="Details">
   <div class="container px-4 px-lg-5" *ngIf="account">
     <h2>{{account.name | uppercase}} Details</h2>
+    <img src={{account.profileImage}} height="100" width="100" alt="Hive-Profile" hspace="50" vspace="50">
+    <p>{{account.about}}</p>
     <div class="badge">
       <label for="account-id">Account ID: </label>
       <input id="account-id" [(ngModel)]="account.id" placeholder="id">
@@ -17,10 +19,6 @@
   </div>
   <div class="badge" *ngIf="hiveBlog">
     <p> Creationdate of last hiveBlog: {{hiveBlog.result[0].created}} </p>
-    <div class="badge" *ngIf="account">
-      <p> The image is: {{account.profileImage}} </p>
-      <img src={{account.profileImage}}>
-    </div>
   </div>
 
 </section>

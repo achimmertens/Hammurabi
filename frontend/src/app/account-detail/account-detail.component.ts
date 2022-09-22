@@ -93,8 +93,9 @@ export class AccountDetailComponent implements OnInit {
 
         this.profile = JSON.parse(this.hiveAccount.result.accounts[0].json_metadata);
         if (this.profile) {
-          this.account.profileImage = this.profile.profile_image;
+          this.account.profileImage = this.profile.profile.profile_image;
           console.log('this.profile: ', this.profile);
+          console.log('this.profile.image: ', this.profile.profile.profile_image);
           console.log('JSON Stringify this.profile: ', JSON.stringify(this.profile));
           console.log('this.hiveAccount.json_metadata...: ', this.hiveAccount.result.accounts[0].json_metadata);
           console.log('JSON Stringify this.hiveAccount.json_metadata...: ', JSON.stringify(this.hiveAccount.result.accounts[0].json_metadata));

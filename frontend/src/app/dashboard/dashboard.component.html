@@ -18,24 +18,29 @@
           <p> Please type in your Name: </p>
           <label for="account-name">Account name: </label>
           <input id="account-name" [(ngModel)]="account.name" placeholder="name">
-          <a routerLink="/game/{{account.id}}">
-          <button class="button" type="button" (click)="startGame(account)">Start Game</button>
-        </a>
+          <p>Dein Name lautet: {{account.name}} und deine ID lautet: {{selectedAccount.id}}</p>
+          <button class="button" type="button" (click)="findID()">Find ID</button>
+        <!--  <a routerLink="/game/{{account.id}}"> -->
+       <!--   <button class="button" type="button" (click)="startGame(account)">Start Game</button> 
+        </a>-->
         </div>
 
+
+      <!--
       <ul class="accounts-menu">
         <a *ngFor="let number of [].constructor(5), let x = index">
           {{accounts[0].content[x].name}}
         </a>
       </ul>
 
-      <div class="text-center" *ngFor="let number of accounts[0].content, let x = index">
+
+              <div class="text-center" *ngFor="let number of accounts[0].content, let x = index">
         id: {{accounts[0].content[x].id}}
         name: {{accounts[0].content[x].name}}
         nickname: {{accounts[0].content[x].nickname}}
         logindate: {{accounts[0].content[x].logindate}}
       </div>
-
+    -->
     </div>
   </div>
 </div>

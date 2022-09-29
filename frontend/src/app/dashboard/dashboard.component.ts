@@ -11,8 +11,9 @@ import { Observable, of } from 'rxjs';
 })
 export class DashboardComponent implements OnInit {
   accounts: any;
-  account: Account = JSON.parse('{"id":"0","name":"Dummy","nickname":"Achim was here","logindate":"2022-07-27T10:04:29.663Z"}');
-  selectedAccount: any;
+  //account: any; <- doesnt work here. We need a pre filled value, otherwise we see nothing in the page
+  account: Account = JSON.parse('{"id":"0","name":"","nickname":"","logindate":"2022-07-27T10:04:29.663Z"}');
+  selectedAccount: any //Account = this.account;
 
   constructor(private accountService: AccountService, private messageService: MessageService) { }
 
@@ -30,48 +31,28 @@ export class DashboardComponent implements OnInit {
   }
 
   findID(): void {
-    // addAccount(account: Account): Observable<any> {
-    //this.selectedAccount = this.account.name;
-    //  this.user=this.users.find( ({id}) =>  id === '595f280e557291a9750ebf9f');
-
     console.log("start finding...")
     this.accountService.getAccounts()
       .subscribe(accounts => {
         this.accounts = accounts;
         console.log("accounts: ", accounts);
         console.log("accountname: ", this.account.name)
-        const saccount = this.accounts[0].content.find(({ name }: { name: any }) => this.account.name === name)
-        console.log("Der gefundene Account lautet:", saccount)
-        console.log("Die gefundene Account-ID lautet:", saccount.id)
-        this.selectedAccount = saccount;
-      });
+        try {
+          const foundAccount = this.accounts[0].content.find(({ name }: { name: any }) => this.account.name === name)
+          console.log("Der gefundene Account lautet:", foundAccount)
+          console.log("Die gefundene Account-ID lautet:", foundAccount.id)
+          this.selectedAccount = foundAccount;
+          this.account =foundAccount;
 
-
-    /*
-
-    this.http
-    .get('https://jsonplaceholder.typicode.com/todos')
-    .subscribe((res: JSON) => {
-      this.promise = (res);
-      console.log ("Res = ", res)
-      console.log('Promise: ', this.promise);
-      this.todo = this.promise.find(
-        ({ id }) => id === 5
-      );
-
-    });
-
-
-
-      startGame(account: Account): void {
-        this.selectedAccount = account;
-    /* Ähm, brauchen wir wohl gar nicht:
-        if (account){  //({id}) =>  id === '595f280e557291a9750ebf9f');
-          this.account.id = this.accounts.find( ({})  )
+          console.log("Die gefundene Account-ID lautet:", foundAccount.id)
         }
-            this.messageService.add(`AccountsComponent: Selected hero id=${this.selectedAccount.id}`);
-      }
-      */
+        catch {
+          console.error("There was no account ID found")
 
+        }
+     
+ 
+        
+      });
   }
 }

@@ -1,32 +1,33 @@
 <header class="masthead">
-
-
-
-
   <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
     <div class="d-flex justify-content-center">
       <div class="text-center">
-
-        <h2>Menu</h2>
         <h3> Rules:</h3>
         <p>You are the King of a nation, that needs food and health. Care for it and it will grow and bring you lots of
           honour.</p>
-        <p>When you login with your Hive-Name, you can get some good benefits to help your folk. But you can also use another name.</p>
+        <p>When you login with your Hive-Name, you can get some good benefits to help your folk. But you can also use
+          another name.</p>
+        <p>This is Version 0.1 of Hammurabi - Later, with Version 1.0, you can win some coins on Hive, when you are
+          good.</p>
         <br>
-    
+
         <div class="text-center" *ngIf="account">
           <p> Please type in your Name: </p>
           <label for="account-name">Account name: </label>
           <input id="account-name" [(ngModel)]="account.name" placeholder="name">
-          <p>Dein Name lautet: {{account.name}} und deine ID lautet: {{selectedAccount.id}}</p>
           <button class="button" type="button" (click)="findID()">Find ID</button>
-        <!--  <a routerLink="/game/{{account.id}}"> -->
-       <!--   <button class="button" type="button" (click)="startGame(account)">Start Game</button> 
-        </a>-->
+
+
+          <div *ngIf="selectedAccount.id">
+            <p>Welcome: {{account.name}}. Your ID is: {{account.id}}</p>
+            <a routerLink="/game/{{account.id}}">
+              <button class="button" type="button">Start Game</button>
+            </a>
+          </div>
         </div>
 
 
-      <!--
+        <!--
       <ul class="accounts-menu">
         <a *ngFor="let number of [].constructor(5), let x = index">
           {{accounts[0].content[x].name}}
@@ -41,7 +42,7 @@
         logindate: {{accounts[0].content[x].logindate}}
       </div>
     -->
+      </div>
     </div>
   </div>
-</div>
 </header>

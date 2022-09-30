@@ -12,24 +12,30 @@
         <br>
 
         <div class="text-center" *ngIf="account">
-          <p> Please type in your Name: </p>
-          <label for="account-name">Account name: </label>
+          <p> Please type in your name for this game: </p>
+          <label for="account-name">Name: </label>
           <input id="account-name" [(ngModel)]="account.name" placeholder="name">
-          <button class="button" type="button" (click)="findID()">Find ID</button>
+          <button class="button" type="button" (click)="findID()">Find Game-ID</button>
           <div *ngIf="findState==='found'">
             <div *ngIf="selectedAccount.id">
-              <p>Welcome: {{account.name}}. Your ID is: {{account.id}}</p>
+              <p>Welcome: {{account.name}}. Your Game ID is: {{account.id}}</p>
             </div>
             <a routerLink="/game/{{account.id}}">
               <button class="button" type="button">Start Game</button>
             </a>
           </div>
           <div *ngIf="findState==='notfound'">
-            <p> This user is new. What do you want:</p>
-            <p> Play with this new account: </p>
-            <p> Search for an existing account: </p>
-            <p> Go Back </p>
+            <p> This user is new. If you want to play with a new user click on "new Player"</p>
+            
           </div>
+          <p> Play with a new account: </p>
+          <a class="nav-link" routerLink="/detail/0">
+            <span class="badge">New Player</span>
+          </a>
+          <p>Or search for an existing account:  </p>
+          <nav>
+          <a class="nav-link" routerLink="/accounts">Accounts</a>
+        </nav> 
         </div>
 
 

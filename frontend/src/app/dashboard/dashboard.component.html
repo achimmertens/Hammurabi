@@ -16,15 +16,23 @@
           <label for="account-name">Account name: </label>
           <input id="account-name" [(ngModel)]="account.name" placeholder="name">
           <button class="button" type="button" (click)="findID()">Find ID</button>
-
-
-          <div *ngIf="selectedAccount.id">
-            <p>Welcome: {{account.name}}. Your ID is: {{account.id}}</p>
+          <div *ngIf="findState==='found'">
+            <div *ngIf="selectedAccount.id">
+              <p>Welcome: {{account.name}}. Your ID is: {{account.id}}</p>
+            </div>
             <a routerLink="/game/{{account.id}}">
               <button class="button" type="button">Start Game</button>
             </a>
           </div>
+          <div *ngIf="findState==='notfound'">
+            <p> This user is new. What do you want:</p>
+            <p> Play with this new account: </p>
+            <p> Search for an existing account: </p>
+            <p> Go Back </p>
+          </div>
         </div>
+
+
 
 
         <!--
@@ -42,7 +50,19 @@
         logindate: {{accounts[0].content[x].logindate}}
       </div>
     -->
+
+     
       </div>
+
+
     </div>
+
   </div>
+
+
+
+  <ng-template #notFound>
+    <h1>No User with this name</h1>
+  </ng-template>
+  <p> Ende</p>
 </header>

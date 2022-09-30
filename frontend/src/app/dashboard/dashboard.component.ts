@@ -12,8 +12,9 @@ import { Observable, of } from 'rxjs';
 export class DashboardComponent implements OnInit {
   accounts: any;
   //account: any; <- doesnt work here. We need a pre filled value, otherwise we see nothing in the page
-  account: Account = JSON.parse('{"id":"0","name":"","nickname":"","logindate":"2022-07-27T10:04:29.663Z"}');
+  account: Account = JSON.parse('{"id":"0","name":"","nickname":"","logindate":"2000-01-01T00:00:00.000Z"}');
   selectedAccount: any //Account = this.account;
+  findState: string = "init";
 
   constructor(private accountService: AccountService, private messageService: MessageService) { }
 
@@ -32,6 +33,7 @@ export class DashboardComponent implements OnInit {
 
   findID(): void {
     console.log("start finding...")
+    this.findState="init";
     this.accountService.getAccounts()
       .subscribe(accounts => {
         this.accounts = accounts;
@@ -45,12 +47,13 @@ export class DashboardComponent implements OnInit {
           this.account =foundAccount;
 
           console.log("Die gefundene Account-ID lautet:", foundAccount.id)
+          this.findState="found";
         }
         catch {
-          console.error("There was no account ID found")
-
+          console.log("There was no account ID found")
+          this.findState="notfound";
         }
-     
+     // Here this.findstate is either "found" or "not found" - so in html there is from this point on no longer findState="init"
  
         
       });

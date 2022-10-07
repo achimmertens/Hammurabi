@@ -97,6 +97,11 @@ export class AccountService {
    *  Hive is a Social Media Blockchain. Here we search their API for some transactions
    */
   /** GET last logindate in Hive for an Account */
+ 
+
+
+
+
   getLogindate(name:string): Observable<HiveBlog> {
     const body = {"jsonrpc":"2.0", "method":"condenser_api.get_discussions_by_author_before_date", "params":["loginname","","",3], "id":1};
     const body2 = JSON.stringify(body).replace('loginname', `${name}`);
@@ -130,6 +135,12 @@ return this.http.post<HiveAccount>(url, body2, this.httpOptions)
   }
   ));
 }
+
+
+
+
+
+
 
 /* Todo: GetUpvoters
 

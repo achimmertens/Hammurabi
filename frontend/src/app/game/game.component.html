@@ -1,21 +1,25 @@
 <header class="masthead">
-    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
-      <div class="d-flex justify-content-center">
-        <div class="text-center" *ngIf="account">
-  
-          <h2>The Game</h2>
-          <h3> Rules:</h3>
-          <p>Dear {{account.name}}. You are King Hammurabi.</p>
-          <p>Your banner is: {{account.about}}</p>
-          Your Kingdom has a population of ....
-          
-  
-          dfadfadfadsfadfa
-          adsfasdfasd
-          adsfasdfasdadsf
-          afadsf
-  
+  <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+    <div class="d-flex justify-content-center">
+      <div class="text-center" *ngIf="account">
+
+        <h2>The Game</h2>
+        <p>Dear {{account.name}}. You are King Hammurabi.
+          <img src={{account.profileImage}} height="100" width="100" alt="Hive-Profile" hspace="50" vspace="50">
+        </p>
+        <p>Your Account.id is: {{account.id}}</p>
+        <p>Your banner is: {{account.about}}</p>
+
+        Your Kingdom has a population of ....
+        <div *ngFor="let round of rounds; let i = index">
+          <p>Year: {{rounds[i].year}}</p>
+          <p>Population: {{rounds[i].population}}</p>
+          <p>Foot: {{rounds[i].foot}}</p>
+          <p>health: {{rounds[i].health}}</p>
+          <p>Treasure: {{rounds[i].treasure}}</p>
+          <p>Taxrate: {{rounds[i].taxrate}}</p>
         </div>
       </div>
     </div>
-  </header>
+  </div>
+</header>

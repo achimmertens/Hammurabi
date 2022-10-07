@@ -52,6 +52,7 @@ export class AccountDetailComponent implements OnInit {
     }
   }
 
+ 
   getLogindate(): void {
     if (this.account) {
       this.accountService.getLogindate(this.account.name)
@@ -74,6 +75,7 @@ export class AccountDetailComponent implements OnInit {
     }
   }
 
+  
   getLoginImage(): void {
     if (this.account) {
       this.accountService.getLoginImage(this.account.name)
@@ -106,5 +108,6 @@ export class AccountDetailComponent implements OnInit {
       }
     }
   }
+  
 
 }

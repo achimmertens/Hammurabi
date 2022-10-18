@@ -11,13 +11,15 @@
         <p>Your banner is: {{account.about}}</p>
 
         Your Kingdom has a population of ....
-        <div *ngFor="let round of rounds; let i = index">
-          <p>Year: {{rounds[i].year}}</p>
-          <p>Population: {{rounds[i].population}}</p>
-          <p>Foot: {{rounds[i].foot}}</p>
-          <p>health: {{rounds[i].health}}</p>
-          <p>Treasure: {{rounds[i].treasure}}</p>
-          <p>Taxrate: {{rounds[i].taxrate}}</p>
+        <div >
+          this.year = {{year}}
+          <p>Year: {{rounds[year].year}}</p>
+          <p>Population: {{rounds[year].population}}</p>
+          <p>Food: {{rounds[year].food}}</p>
+          <p>health: {{rounds[year].health}}</p>
+          <p>Treasure: {{rounds[year].treasure}}</p>
+          <p>Taxrate: {{rounds[year].taxrate}}</p>
+          <button class="button" type="button" title="next year" (click)="playgRound()"> next year</button>
         </div>
       </div>
     </div>

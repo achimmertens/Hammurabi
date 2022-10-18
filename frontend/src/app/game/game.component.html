@@ -2,15 +2,12 @@
   <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
     <div class="d-flex justify-content-center">
       <div class="text-center" *ngIf="account">
-
         <h2>The Game</h2>
         <p>Dear {{account.name}}. You are King Hammurabi.
           <img src={{account.profileImage}} height="100" width="100" alt="Hive-Profile" hspace="50" vspace="50">
         </p>
         <p>Your Account.id is: {{account.id}}</p>
         <p>Your banner is: {{account.about}}</p>
-
-        Your Kingdom has a population of ....
         <div>
           this.year = {{year}}
           <p>Year: {{rounds[year].year}}</p>
@@ -18,9 +15,15 @@
           <p>Food: {{rounds[year].food}}</p>
           <p>health: {{rounds[year].health}}</p>
           <p>Treasure: {{rounds[year].treasure}}</p>
+          <p>Taxrate (influences Treasure + happiness): {{roundnow.taxrate}}</p>
+          <p>Happiness: {{roundnow.happiness}}</p>
+          <p>production: {{roundnow.production}}</p>
+          <p> Please type in your taxrate for the next year: </p>
+          <label for="taxrate">Taxrate: </label>
+          <input id="taxrate" [(ngModel)]="rounds[year].taxrate" placeholder="name">
           <p>Taxrate: {{rounds[year].taxrate}}</p>
           <div class="text-center" *ngIf="rounds[year]">
-            <div *ngIf="year < 5; then thenTemplate; else elseTemplate">
+            <div *ngIf="year < 10; then thenTemplate; else elseTemplate">
             </div>
             <ng-template #thenTemplate>
               <p>First is greater</p>

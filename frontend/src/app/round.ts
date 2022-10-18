@@ -4,9 +4,7 @@ food: number
 population: number,
 treasure: number,
 health: number,
-taxrate: number
+taxrate: number,
+happiness: number,
+production: number
 }
-
-export interface Test
-{ a: number,
-b:number }

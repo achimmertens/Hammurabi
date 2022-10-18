@@ -5,7 +5,7 @@ import { AccountService } from '../account.service';
 import { Location } from '@angular/common';
 import { HiveAccount, Profile } from '../hive-account';
 import { HiveBlog } from '../hive-blog';
-import { Round, Test } from '../round';
+import { Round} from '../round';
 
 @Component({
   templateUrl: './game.component.html',
@@ -16,21 +16,9 @@ export class GameComponent implements OnInit {
   profile: Profile | undefined;
   account: Account | undefined;
   hiveBlog: HiveBlog | undefined;
-  //round: Round | undefined;
-  //account: Account = JSON.parse('{"id":"0","name":"","nickname":"","logindate":"2000-01-01T00:00:00.000Z"}');
-  /*
-      year: number,
-      food: number
-      population: number,
-      treasure: number,
-      health: number,
-      taxrate: number
-  */
-  roundzero: Round = JSON.parse('{"year":0,"food":100,"population":100,"treasure":100,"health":100,"taxrate":0}');
-  roundnow: Round | any
+  roundzero: Round = JSON.parse('{"year":0,"food":100,"population":100,"treasure":100,"health":100,"taxrate":0,"happiness":100, "production":100}');
+  roundnow: Round 
   rounds: Round[] = [this.roundzero];
-  //  testzero:Test =  JSON.parse('{"a":0}');
-  //tests: Test[]=[this.testzero];
   year = 0;
 
   constructor(
@@ -89,25 +77,45 @@ export class GameComponent implements OnInit {
   }
 
   playgRound(): void {
-    var x;
+    var f,p1,p2,h,pop; 
     this.year++;
     //    this.rounds[0]=this.roundzero
     console.log("letztes Jahr war:", this.year - 1);
     console.log("Dieses Jahr ist:", this.year);
     // this.rounds[this.year] = this.rounds[this.year - 1];  //Hier ist der Hund begraben. Es wird das komplette Array überschrieben
     this.roundnow.year = this.year;
-    this.roundnow.food = this.rounds[this.year - 1].food + 2;
+    // production influences food
+    f=this.rounds[this.year - 1].food/100;
+    this.roundnow.food=f*this.rounds[this.year - 1].production; 
+
+   
     this.roundnow.health = this.rounds[this.year - 1].health;
-    this.roundnow.population = this.rounds[this.year - 1].population + 2;
+
+    //food influences population:
+    pop=this.rounds[this.year - 1].population/100;
+    this.roundnow.population=pop*this.rounds[this.year - 1].food; 
+
     this.roundnow.taxrate = this.rounds[this.year - 1].taxrate;
-    this.roundnow.treasure = this.rounds[this.year - 1].treasure - 3;
+    //taxrate influences happiness:
+    h=this.rounds[this.year - 1].happiness/100;
+    this.roundnow.happiness=h*(100-h*this.rounds[this.year - 1].taxrate)  
+    //taxrate influences treasure:
+    this.roundnow.treasure = this.rounds[this.year - 1].treasure + Number(this.rounds[this.year-1].taxrate);  
+    //happiness influences production:
+    p1=this.rounds[this.year - 1].production/100;
+    p2=p1*this.rounds[this.year - 1].happiness/100;  
+    //population influences production:
+    this.roundnow.production=p2*this.rounds[this.year - 1].population; 
+
     this.rounds.push({
       year: this.roundnow.year,
       food: this.roundnow.food,
       health: this.roundnow.health,
       population: this.roundnow.population,
       taxrate: this.roundnow.taxrate,
-      treasure: this.roundnow.treasure
+      treasure: this.roundnow.treasure,
+      happiness: this.roundnow.happiness,
+      production: this.roundnow.production
     })
     console.log("Diese Runde (this rounds):", JSON.stringify(this.rounds[this.year]));
     console.log("Diese Runde (this roundnow):", JSON.stringify(this.roundnow));

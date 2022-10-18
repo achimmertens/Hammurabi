@@ -16,10 +16,12 @@ export class GameComponent implements OnInit {
   profile: Profile | undefined;
   account: Account | undefined;
   hiveBlog: HiveBlog | undefined;
-  roundzero: Round = JSON.parse('{"year":0,"food":100,"population":100,"treasure":100,"health":100,"taxrate":0,"happiness":100, "production":100}');
+  roundzero: Round = JSON.parse('{"year":0,"food":100,"population":100,"treasure":0,"health":100,"taxrate":0,"happiness":100, "production":100}');
   roundnow: Round 
   rounds: Round[] = [this.roundzero];
   year = 0;
+  addFood=0;
+  Landmass=10000;
 
   constructor(
     private route: ActivatedRoute,
@@ -77,34 +79,45 @@ export class GameComponent implements OnInit {
   }
 
   playgRound(): void {
-    var f,p1,p2,h,pop; 
+    var f1,f2,footRate,p1,p2,h1,h2,pop1,pop2,t1,t2; 
+    
     this.year++;
     //    this.rounds[0]=this.roundzero
     console.log("letztes Jahr war:", this.year - 1);
     console.log("Dieses Jahr ist:", this.year);
     // this.rounds[this.year] = this.rounds[this.year - 1];  //Hier ist der Hund begraben. Es wird das komplette Array überschrieben
     this.roundnow.year = this.year;
-    // production influences food
-    f=this.rounds[this.year - 1].food/100;
-    this.roundnow.food=f*this.rounds[this.year - 1].production; 
+    // production and population influences food
+    f1=this.rounds[this.year - 1].food/100;
+    f2=f1*100/this.rounds[this.year - 1].population;
+    this.roundnow.food=f2*this.rounds[this.year - 1].production+Number(this.addFood)*100/this.rounds[this.year - 1].population; 
+    this.addFood=0;
+  
 
-   
-    this.roundnow.health = this.rounds[this.year - 1].health;
-
-    //food influences population:
-    pop=this.rounds[this.year - 1].population/100;
-    this.roundnow.population=pop*this.rounds[this.year - 1].food; 
+    //food and landmass influences population:
+    pop1=this.rounds[this.year - 1].population/100;
+    pop2=pop1*this.Landmass/(this.Landmass+pop1)
+    this.roundnow.population=pop2*this.rounds[this.year - 1].food; 
+    console.log("pop1, pop2 + population: ",pop1,pop2,this.roundnow.population)
 
     this.roundnow.taxrate = this.rounds[this.year - 1].taxrate;
-    //taxrate influences happiness:
-    h=this.rounds[this.year - 1].happiness/100;
-    this.roundnow.happiness=h*(100-h*this.rounds[this.year - 1].taxrate)  
-    //taxrate influences treasure:
-    this.roundnow.treasure = this.rounds[this.year - 1].treasure + Number(this.rounds[this.year-1].taxrate);  
-    //happiness influences production:
+    //taxrate and food influences happiness:
+    h1=this.rounds[this.year - 1].happiness/100;
+    //h2=h1*(100-h1*this.rounds[this.year - 1].taxrate) 
+    h2=100-h1*this.rounds[this.year - 1].taxrate
+    this.roundnow.happiness=h2/100*this.rounds[this.year-1].food
+
+    
+   //taxrate and production influences treasure:
+   //if(this.rounds[this.year].taxrate){
+    t1 = Number(this.rounds[this.year - 1].treasure + this.rounds[this.year-1].taxrate);  //todo
+    this.roundnow.treasure=t1*this.rounds[this.year-1].production/100
+    console.log("t1, t2 + Treasure: ",t1,t2,this.roundnow.treasure)
+   //}
+
+    //happiness and population influences production:
     p1=this.rounds[this.year - 1].production/100;
-    p2=p1*this.rounds[this.year - 1].happiness/100;  
-    //population influences production:
+    p2=p1*this.rounds[this.year - 1].happiness/100;
     this.roundnow.production=p2*this.rounds[this.year - 1].population; 
 
     this.rounds.push({

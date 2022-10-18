@@ -12,25 +12,25 @@
           this.year = {{year}}
           <p>Year: {{rounds[year].year}}</p>
           <p>Population: {{rounds[year].population}}</p>
-          <p>Food: {{rounds[year].food}}</p>
-          <p>health: {{rounds[year].health}}</p>
+          <p>Foodrate: {{rounds[year].food}}%</p>
           <p>Treasure: {{rounds[year].treasure}}</p>
           <p>Taxrate (influences Treasure + happiness): {{roundnow.taxrate}}</p>
           <p>Happiness: {{roundnow.happiness}}</p>
           <p>production: {{roundnow.production}}</p>
           <p> Please type in your taxrate for the next year: </p>
           <label for="taxrate">Taxrate: </label>
-          <input id="taxrate" [(ngModel)]="rounds[year].taxrate" placeholder="name">
-          <p>Taxrate: {{rounds[year].taxrate}}</p>
+          <input id="taxrate" [(ngModel)]="rounds[year].taxrate" placeholder="tax your people" type="number">
+         
+          <label for="Food">Buy Food: </label>
+          <input id="Food" [(ngModel)]="addFood" placeholder="Buy food for the people" >
+          <p>Taxrate: {{rounds[year].taxrate}}        Food: {{rounds[year].food}} </p>
           <div class="text-center" *ngIf="rounds[year]">
             <div *ngIf="year < 10; then thenTemplate; else elseTemplate">
             </div>
             <ng-template #thenTemplate>
-              <p>First is greater</p>
               <button class="button" type="button" title="next year" (click)="playgRound()"> next year</button>
             </ng-template>
             <ng-template #elseTemplate>
-              <p>Second is greater</p>
               Game over
             </ng-template>
 

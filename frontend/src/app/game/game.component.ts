@@ -27,28 +27,22 @@ export class GameComponent implements OnInit {
       taxrate: number
   */
   roundzero: Round = JSON.parse('{"year":0,"food":100,"population":100,"treasure":100,"health":100,"taxrate":0}');
-  //rounds: Round[] = [];
-  //fruits: string[] = ['Kiwi', 'Plums', 'Peaches', 'Apples', 'Lime', 'Cherries'];
-  roundnow: Round=this.roundzero;
+  roundnow: Round | any
   rounds: Round[] = [this.roundzero];
-  //Test: { a: number} | any
-  testzero:Test =  JSON.parse('{"a":0}');
+  //  testzero:Test =  JSON.parse('{"a":0}');
   //tests: Test[]=[this.testzero];
-  tests: Test[]=[];
   year = 0;
 
   constructor(
     private route: ActivatedRoute,
     private location: Location,
     private accountService: AccountService) {
-      this.tests[0]=this.testzero;
-      this.tests[1]=this.testzero;
-     }
+    this.roundnow = this.roundzero;
+  }
 
   ngOnInit(): void {
     this.getAccount();
     this.playgRound();
-    //this.dishService.getDishIds().subscribe(dishIds => this.dishIds);
   }
 
   getAccount(): void {
@@ -97,22 +91,16 @@ export class GameComponent implements OnInit {
   playgRound(): void {
     var x;
     this.year++;
-//    this.rounds[0]=this.roundzero
+    //    this.rounds[0]=this.roundzero
     console.log("letztes Jahr war:", this.year - 1);
     console.log("Dieses Jahr ist:", this.year);
-   // this.rounds[this.year] = this.rounds[this.year - 1];  //Hier ist der Hund begraben
-    //this.rounds[this.year] = this.round;
-    
-      this.roundnow.year = this.year;
-      
+    // this.rounds[this.year] = this.rounds[this.year - 1];  //Hier ist der Hund begraben. Es wird das komplette Array überschrieben
+    this.roundnow.year = this.year;
     this.roundnow.food = this.rounds[this.year - 1].food + 2;
-    
     this.roundnow.health = this.rounds[this.year - 1].health;
     this.roundnow.population = this.rounds[this.year - 1].population + 2;
     this.roundnow.taxrate = this.rounds[this.year - 1].taxrate;
-    this.roundnow.treasure = this.rounds[this.year - 1].treasure-3;
-
-
+    this.roundnow.treasure = this.rounds[this.year - 1].treasure - 3;
     this.rounds.push({
       year: this.roundnow.year,
       food: this.roundnow.food,
@@ -121,28 +109,12 @@ export class GameComponent implements OnInit {
       taxrate: this.roundnow.taxrate,
       treasure: this.roundnow.treasure
     })
-    //[this.year].food=this.rounds[this.year-1].food+5
-    this.tests[0]=this.testzero;
-    console.log("tests[0]:", this.tests[0])
-    console.log("tests[0].a:", this.tests[0].a)
-    x=this.tests[this.year-1].a+2
-    console.log("tests[letztes Jahr].a+2:", x)
-    
-   //this.rowData.push({    key+i : val+1  });
-   this.tests.push({a:x, b:2})
-    //this.tests[this.year].a =x;
-    console.log("tests[dieses Jahr].a:", this.tests[this.year].a)
     console.log("Diese Runde (this rounds):", JSON.stringify(this.rounds[this.year]));
     console.log("Diese Runde (this roundnow):", JSON.stringify(this.roundnow));
-    console.log("Vorrunde: ",JSON.stringify(this.rounds[this.year-1]))
+    console.log("Vorrunde: ", JSON.stringify(this.rounds[this.year - 1]))
     console.log("Runden: ", this.rounds)
-    console.log("Runde 1: ",JSON.stringify(this.rounds[1]))
-   
-
-    console.log("Tests:", this.tests)
-  
+    console.log("Runde 1: ", JSON.stringify(this.rounds[1]))
   }
-
 
 
 }

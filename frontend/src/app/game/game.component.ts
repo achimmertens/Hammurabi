@@ -21,7 +21,8 @@ export class GameComponent implements OnInit {
   rounds: Round[] = [this.roundzero];
   year = 0;
   addFood=0;
-  Landmass=10000;
+  landmass=10000;
+  levelFaktor=1.00;
 
   constructor(
     private route: ActivatedRoute,
@@ -79,7 +80,7 @@ export class GameComponent implements OnInit {
   }
 
   playgRound(): void {
-    var f1,f2,footRate,p1,p2,h1,h2,pop1,pop2,t1,t2; 
+    var f1,f2,f3,p0,p1,p2,p3,h1,h2,pop1,pop2,pop3,t1,t2; 
     
     this.year++;
     //    this.rounds[0]=this.roundzero
@@ -87,18 +88,20 @@ export class GameComponent implements OnInit {
     console.log("Dieses Jahr ist:", this.year);
     // this.rounds[this.year] = this.rounds[this.year - 1];  //Hier ist der Hund begraben. Es wird das komplette Array überschrieben
     this.roundnow.year = this.year;
+
     // production and population influences food
-    f1=this.rounds[this.year - 1].food/100;
+    f1=1;
     f2=f1*100/this.rounds[this.year - 1].population;
-    this.roundnow.food=f2*this.rounds[this.year - 1].production+Number(this.addFood)*100/this.rounds[this.year - 1].population; 
+    f3=f2*this.rounds[this.year - 1].production
+    this.roundnow.food=f3*this.levelFaktor/(f3/this.landmass+1)+Number(this.addFood)*100/this.rounds[this.year - 1].population; 
     this.addFood=0;
   
 
     //food and landmass influences population:
-    pop1=this.rounds[this.year - 1].population/100;
-    pop2=pop1*this.Landmass/(this.Landmass+pop1)
-    this.roundnow.population=pop2*this.rounds[this.year - 1].food; 
-    console.log("pop1, pop2 + population: ",pop1,pop2,this.roundnow.population)
+    pop1=this.rounds[this.year - 1].population;
+    pop3=pop1/(pop1/this.landmass+1)// + this.rounds[0].population  //asymptote between pop1 and landmass
+    this.roundnow.population=pop3*this.rounds[this.year - 1].food/100; 
+    console.log("pop1, pop2, pop3 + population: ",pop1,pop2,pop3, this.roundnow.population)
 
     this.roundnow.taxrate = this.rounds[this.year - 1].taxrate;
     //taxrate and food influences happiness:
@@ -115,10 +118,14 @@ export class GameComponent implements OnInit {
     console.log("t1, t2 + Treasure: ",t1,t2,this.roundnow.treasure)
    //}
 
-    //happiness and population influences production:
-    p1=this.rounds[this.year - 1].production/100;
+    //happiness and landmass and population influences production:
+    //p0=this.rounds[0].production*this.rounds[0].happiness/100;
+    p1=this.rounds[this.year - 1].production/100;  
     p2=p1*this.rounds[this.year - 1].happiness/100;
-    this.roundnow.production=p2*this.rounds[this.year - 1].population; 
+    //p3=this.landmass - this.landmass*p0/(p1*p2) + p0;  //asymptote between pop1 and landmass
+    p3=p2/(p2/this.landmass+1)//+this.rounds[0].production //asymptote between p2 and landmass
+    //pop2=pop1/(pop1/this.landmass+1) + this.rounds[0].population  //asymptote between pop1 and landmass
+    this.roundnow.production=p3*this.rounds[this.year - 1].population; 
 
     this.rounds.push({
       year: this.roundnow.year,

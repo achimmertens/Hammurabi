@@ -25,7 +25,7 @@
           <input id="Food" [(ngModel)]="addFood" placeholder="Buy food for the people" >
           <p>Taxrate: {{rounds[year].taxrate}}        Food: {{rounds[year].food}} </p>
           <div class="text-center" *ngIf="rounds[year]">
-            <div *ngIf="year < 10; then thenTemplate; else elseTemplate">
+            <div *ngIf="year < 15; then thenTemplate; else elseTemplate">
             </div>
             <ng-template #thenTemplate>
               <button class="button" type="button" title="next year" (click)="playgRound()"> next year</button>

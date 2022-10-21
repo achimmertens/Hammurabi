@@ -5,7 +5,9 @@ import { AccountService } from '../account.service';
 import { Location } from '@angular/common';
 import { HiveAccount, Profile } from '../hive-account';
 import { HiveBlog } from '../hive-blog';
-import { Round} from '../round';
+import { Round } from '../round';
+//import {Controller} from '@angular/common'
+//import {angular} from"https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js";
 
 @Component({
   templateUrl: './game.component.html',
@@ -17,12 +19,14 @@ export class GameComponent implements OnInit {
   account: Account | undefined;
   hiveBlog: HiveBlog | undefined;
   roundzero: Round = JSON.parse('{"year":0,"food":100,"population":100,"treasure":0,"health":100,"taxrate":0,"happiness":100, "production":100}');
-  roundnow: Round 
+  roundnow: Round
   rounds: Round[] = [this.roundzero];
   year = 0;
-  addFood=0;
-  landmass=10000;
-  levelFaktor=1.00;
+  addFood = 0;
+  landmass = 10000;
+  levelFaktor = 1.00;
+  tooExpensive = false;
+  value = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -80,8 +84,8 @@ export class GameComponent implements OnInit {
   }
 
   playgRound(): void {
-    var f1,f2,f3,p0,p1,p2,p3,h1,h2,pop1,pop2,pop3,t1,t2; 
-    
+    var f1, f2, f3, p0, p1, p2, p3, h1, h2, pop1, pop2, pop3, t1, t2;
+
     this.year++;
     //    this.rounds[0]=this.roundzero
     console.log("letztes Jahr war:", this.year - 1);
@@ -90,42 +94,39 @@ export class GameComponent implements OnInit {
     this.roundnow.year = this.year;
 
     // production and population influences food
-    f1=1;
-    f2=f1*100/this.rounds[this.year - 1].population;
-    f3=f2*this.rounds[this.year - 1].production
-    this.roundnow.food=f3*this.levelFaktor/(f3/this.landmass+1)+Number(this.addFood)*100/this.rounds[this.year - 1].population; 
-    this.addFood=0;
-  
+    f1 = 1;
+    f2 = f1 * 100 / this.rounds[this.year - 1].population;
+    f3 = f2 * this.rounds[this.year - 1].production
+    this.roundnow.food = f3 * this.levelFaktor / (f3 / this.landmass + 1) + Number(this.addFood) * 100 / this.rounds[this.year - 1].population;
+
+
 
     //food and landmass influences population:
-    pop1=this.rounds[this.year - 1].population;
-    pop3=pop1/(pop1/this.landmass+1)// + this.rounds[0].population  //asymptote between pop1 and landmass
-    this.roundnow.population=pop3*this.rounds[this.year - 1].food/100; 
-    console.log("pop1, pop2, pop3 + population: ",pop1,pop2,pop3, this.roundnow.population)
+    pop1 = this.rounds[this.year - 1].population;
+    pop3 = pop1 / (pop1 / this.landmass + 1)// + this.rounds[0].population  //asymptote between pop1 and landmass
+    this.roundnow.population = pop3 * this.rounds[this.year - 1].food / 100;
+    console.log("pop1, pop2, pop3 + population: ", pop1, pop2, pop3, this.roundnow.population)
 
     this.roundnow.taxrate = this.rounds[this.year - 1].taxrate;
-    //taxrate and food influences happiness:
-    h1=this.rounds[this.year - 1].happiness/100;
-    //h2=h1*(100-h1*this.rounds[this.year - 1].taxrate) 
-    h2=100-h1*this.rounds[this.year - 1].taxrate
-    this.roundnow.happiness=h2/100*this.rounds[this.year-1].food
 
-    
-   //taxrate and production influences treasure:
-   //if(this.rounds[this.year].taxrate){
-    t1 = Number(this.rounds[this.year - 1].treasure + this.rounds[this.year-1].taxrate);  //todo
-    this.roundnow.treasure=t1*this.rounds[this.year-1].production/100
-    console.log("t1, t2 + Treasure: ",t1,t2,this.roundnow.treasure)
-   //}
+    //taxrate and food influences happiness:
+    h1 = this.rounds[this.year - 1].happiness / 100;
+    //h2=h1*(100-h1*this.rounds[this.year - 1].taxrate) 
+    h2 = 100 - h1 * this.rounds[this.year - 1].taxrate
+    this.roundnow.happiness = h2 / 100 * this.rounds[this.year - 1].food
+
+
+    this.checkTreasure() ;
+
 
     //happiness and landmass and population influences production:
     //p0=this.rounds[0].production*this.rounds[0].happiness/100;
-    p1=this.rounds[this.year - 1].production/100;  
-    p2=p1*this.rounds[this.year - 1].happiness/100;
+    p1 = this.rounds[this.year - 1].production / 100;
+    p2 = p1 * this.rounds[this.year - 1].happiness / 100;
     //p3=this.landmass - this.landmass*p0/(p1*p2) + p0;  //asymptote between pop1 and landmass
-    p3=p2/(p2/this.landmass+1)//+this.rounds[0].production //asymptote between p2 and landmass
+    p3 = p2 / (p2 / this.landmass + 1)//+this.rounds[0].production //asymptote between p2 and landmass
     //pop2=pop1/(pop1/this.landmass+1) + this.rounds[0].population  //asymptote between pop1 and landmass
-    this.roundnow.production=p3*this.rounds[this.year - 1].population; 
+    this.roundnow.production = p3 * this.rounds[this.year - 1].population;
 
     this.rounds.push({
       year: this.roundnow.year,
@@ -144,5 +145,26 @@ export class GameComponent implements OnInit {
     console.log("Runde 1: ", JSON.stringify(this.rounds[1]))
   }
 
+  checkTreasure() {
+    var t1,t2;
+    //taxrate and production influences treasure:
+
+    t1 = Number(this.rounds[this.year - 1].treasure + this.rounds[this.year - 1].taxrate);  //todo
+    if (this.addFood > this.roundnow.treasure) { this.tooExpensive = true }
+    else {
+      this.roundnow.treasure = t1 * this.rounds[this.year - 1].production / 100 - this.addFood;
+      console.log("addfood, t1, t2 + Treasure: ", this.addFood, t1, t2, this.roundnow.treasure)
+      this.tooExpensive = false;
+    }
+  }
+
+  update(value: string) { this.value = value; }
+
+  onKey(event: KeyboardEvent) { // with type info
+    this.addFood=Number((event.target as HTMLInputElement).value);
+    //this.value += (event.target as HTMLInputElement).value + ' | ';
+    
+    this.checkTreasure();
+  }
 
 }

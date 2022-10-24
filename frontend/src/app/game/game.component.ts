@@ -24,7 +24,7 @@ export class GameComponent implements OnInit {
   year = 0;
   addFood = 0;
   landmass = 10000;
-  levelFaktor = 1.00;
+  levelFaktor = 1.02;
   tooExpensive = false;
   value = '';
 
@@ -86,20 +86,19 @@ export class GameComponent implements OnInit {
   playgRound(): void {
     var f1, f2, f3, p0, p1, p2, p3, h1, h2, pop1, pop2, pop3, t1, t2;
   
-
+    
     this.year++;
 
     //    this.rounds[0]=this.roundzero
     console.log("letztes Jahr war:", this.year - 1);
     console.log("Dieses Jahr ist:", this.year);
-    // this.rounds[this.year] = this.rounds[this.year - 1];  //Hier ist der Hund begraben. Es wird das komplette Array überschrieben
     this.roundnow.year = this.year;
 
-  //Food
-  t1 = Number(this.rounds[this.year - 1].treasure + this.rounds[this.year - 1].taxrate);  
-  this.roundnow.treasure = t1 * this.rounds[this.year - 1].production / 100 - this.addFood;
+  //Treasure
+  t1 = Number(this.rounds[this.year - 1].treasure + this.rounds[this.year - 1].taxrate) - this.addFood;  
+  this.roundnow.treasure = t1 * this.rounds[this.year - 1].production / 100 ;
   console.log("addfood, t1, t2 + Treasure: ", this.addFood, t1, t2, this.roundnow.treasure)
-  
+  this.addFood=0;
 
     // production and population influences food
     f1 = 1;

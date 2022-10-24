@@ -22,8 +22,12 @@
           <input id="taxrate" [(ngModel)]="rounds[year].taxrate" placeholder="tax your people" type="number">
 
           <label for="Food">Buy Food: </label>
-          <input #box id="Food" placeholder="Buy food for the people" (keyup)="onKey($event)"
-            (keyup.enter)="checkTreasure()" (blur)="checkTreasure()">
+
+
+
+          <input #box  id="Food" placeholder="Buy food for the people" name="addfood" (keyup)="0" (keyup)="onKey($event)"
+           (keyup.enter)="checkTreasure()" (blur)="checkTreasure()" [(ngModel)]="addFood">
+
           <p> addFood= {{addFood}}</p>
 
           <!--
@@ -46,15 +50,15 @@
           <div class="text-center" *ngIf="tooExpensive; then zuTeuer; else elseRounds">
           </div>
           <ng-template #zuTeuer>
-            <p> zu teuer</p>
+            <p> You cannot affort that amount of food!</p>
           </ng-template>
           <ng-template #elseRounds>
             <div class="text-center" *ngIf="rounds[year]">
 
-              <div *ngIf="year < 15; then thenTemplate; else elseTemplate">
+              <div *ngIf="year < 15 && rounds[year].population>1; then thenTemplate; else elseTemplate">
               </div>
               <ng-template #thenTemplate>
-                <button class="button" type="button" title="next year" (click)="playgRound()"> next year</button>
+                <button class="button" type="button" title="next year" (click)="playgRound()" > next year</button>
               </ng-template>
               <ng-template #elseTemplate>
                 Game over

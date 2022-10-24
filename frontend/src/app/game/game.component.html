@@ -1,4 +1,3 @@
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <header class="masthead">
   <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
     <div class="d-flex justify-content-center">
@@ -20,14 +19,14 @@
           <p>production: {{roundnow.production}}</p>
           <p> Please type in your taxrate for the next year: </p>
           <label for="taxrate">Taxrate: </label>
-          <input id="taxrate" [(ngModel)]="rounds[year].taxrate" placeholder="tax your people" type="number" >
-         
+          <input id="taxrate" [(ngModel)]="rounds[year].taxrate" placeholder="tax your people" type="number">
+
           <label for="Food">Buy Food: </label>
-          <input #box id="Food" placeholder="Buy food for the people" (keyup)="onKey($event)" (keyup.enter)="checkTreasure()"
-          (blur)="checkTreasure()">
+          <input #box id="Food" placeholder="Buy food for the people" (keyup)="onKey($event)"
+            (keyup.enter)="checkTreasure()" (blur)="checkTreasure()">
           <p> addFood= {{addFood}}</p>
-          
-          
+
+          <!--
           <input (keyup)="onKey($event)">
           <p>{{value}}</p>
 
@@ -38,41 +37,34 @@
             (blur)="update(box.value)">
       
           <p>Value = {{value}}</p>
-
+        
           </div>
+  -->
 
+          <p>Taxrate: {{rounds[year].taxrate}} Food: {{addFood}} </p>
 
-          <p>Taxrate: {{rounds[year].taxrate}}        Food: {{addFood}} </p>
-
-          <div class="text-center" *ngIf="tooExpensive">
-            zu teuer
-            </div>
-
-          <div class="text-center" *ngIf="rounds[year]">
-            <div *ngIf="year < 15; then thenTemplate; else elseTemplate">
-            </div>
-            <ng-template #thenTemplate>
-              <button class="button" type="button" title="next year" (click)="playgRound()"> next year</button>
-            </ng-template>
-            <ng-template #elseTemplate>
-              Game over
-            </ng-template>
-
-
-
-
-
-
+          <div class="text-center" *ngIf="tooExpensive; then zuTeuer; else elseRounds">
           </div>
+          <ng-template #zuTeuer>
+            <p> zu teuer</p>
+          </ng-template>
+          <ng-template #elseRounds>
+            <div class="text-center" *ngIf="rounds[year]">
+
+              <div *ngIf="year < 15; then thenTemplate; else elseTemplate">
+              </div>
+              <ng-template #thenTemplate>
+                <button class="button" type="button" title="next year" (click)="playgRound()"> next year</button>
+              </ng-template>
+              <ng-template #elseTemplate>
+                Game over
+              </ng-template>
+            </div>
+          </ng-template>
+
+
         </div>
       </div>
     </div>
   </div>
 </header>
-
-<script>
-  var app = angular.module('myApp', []);
-  app.controller('myCtrl', function($scope) {
-      $scope.count = 0;
-  });
-  </script> 

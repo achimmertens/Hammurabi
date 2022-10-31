@@ -82,7 +82,7 @@ export class AccountDetailComponent implements OnInit {
         //.subscribe(() => this.goBack());
         .subscribe((xxx) => {
           this.hiveAccount = (xxx);
-          console.log('this.hiveBlog: ', this.hiveBlog);
+          console.log('this.hiveAccount: ', this.hiveAccount);
           this.setLoginImage();
         });
     }

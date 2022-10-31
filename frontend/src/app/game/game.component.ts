@@ -127,12 +127,10 @@ export class GameComponent implements OnInit {
 
 
     //happiness and landmass and population influences production:
-    //p0=this.rounds[0].production*this.rounds[0].happiness/100;
     p1 = this.rounds[this.year - 1].production / 100;
     p2 = p1 * this.rounds[this.year - 1].happiness / 100;
     //p3=this.landmass - this.landmass*p0/(p1*p2) + p0;  //asymptote between pop1 and landmass
     p3 = p2 / (p2 / this.landmass + 1)//+this.rounds[0].production //asymptote between p2 and landmass
-    //pop2=pop1/(pop1/this.landmass+1) + this.rounds[0].population  //asymptote between pop1 and landmass
     this.roundnow.production = p3 * this.rounds[this.year - 1].population;
 
     this.rounds.push({

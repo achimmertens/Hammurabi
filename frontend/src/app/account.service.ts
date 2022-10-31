@@ -52,7 +52,6 @@ export class AccountService {
         catchError(this.handleError<Level1[]>('getLevel1', []))
       );
     this.log("Der Inhalt von Content ist:" + JSON.stringify(content));
-
     return JSON.parse(content[0]);
   } */
 
@@ -98,10 +97,6 @@ export class AccountService {
    */
   /** GET last logindate in Hive for an Account */
  
-
-
-
-
   getLogindate(name:string): Observable<HiveBlog> {
     const body = {"jsonrpc":"2.0", "method":"condenser_api.get_discussions_by_author_before_date", "params":["loginname","","",3], "id":1};
     const body2 = JSON.stringify(body).replace('loginname', `${name}`);
@@ -135,11 +130,6 @@ return this.http.post<HiveAccount>(url, body2, this.httpOptions)
   }
   ));
 }
-
-
-
-
-
 
 
 /* Todo: GetUpvoters

@@ -1,0 +1,23 @@
+<header class="masthead">
+  <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+    <div class="d-flex justify-content-center">
+      <div class="container px-4 px-lg-5" >
+
+
+        <h2 class="accounts">My Accounts</h2>
+        <p class="navbar-brand">Die Account-ID vom ersten Datensatz lautet: {{accounts[0].content[0].id}} </p>
+        <ul class="accounts">
+          <li *ngFor="let account of accounts[0].content">
+            <a routerLink="/detail/{{account.id}}">
+              <span class="badge">ID: {{account.id}}</span> Name: {{account.name}}, NickName: {{account.nickname}},
+              Logindate: {{account.logindate}}
+            </a>
+            <button type="button" class="delete" title="delete account" (click)="delete(account)">x</button>
+            <!-- <button type="button"  title="delete account" (click)="delete(account)">x</button> -->
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+</header>

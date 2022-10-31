@@ -1,0 +1,24 @@
+<section class="about-section text-center" id="Details">
+  <div class="container px-4 px-lg-5" *ngIf="account">
+    <h2>{{account.name | uppercase}} Details</h2>
+    <img src={{account.profileImage}} height="100" width="100" alt="Hive-Profile" hspace="50" vspace="50">
+    <p>{{account.about}}</p>
+    <div class="badge">
+      <label for="account-id">Account ID: </label>
+      <input id="account-id" [(ngModel)]="account.id" placeholder="id">
+      <label for="account-name">Account name: </label>
+      <input id="account-name" [(ngModel)]="account.name" placeholder="name">
+      <label for="account-nickname"> Nickname: </label>
+      <input id="account-nickname" [(ngModel)]="account.nickname" placeholder="nickname">
+      <label for="account-logindate"> Logindate: </label>
+      <input id="account-logindate" [(ngModel)]="account.logindate" placeholder="logindate">
+    </div>
+    <button class="button" type="button" (click)="goBack()">go back</button>
+    <button class="button" type="button" (click)="save()">save</button>
+    <button class="button" type="button" (click)="getLogindate()">get Hive lastlogindate</button>
+  </div>
+  <div class="badge" *ngIf="hiveBlog">
+    <p> Creationdate of last hiveBlog: {{hiveBlog.result[0].created}} </p>
+  </div>
+
+</section>

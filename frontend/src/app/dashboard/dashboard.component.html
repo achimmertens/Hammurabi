@@ -1,0 +1,74 @@
+<header class="masthead" id="#page-top">
+  <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+    <div class="d-flex justify-content-center">
+      <div class="text-center">
+        <h3> Rules:</h3>
+        <p>You are the King of a nation, that needs food and health. Care for it and it will grow and bring you lots of
+          honour.</p>
+        <p>When you login with your Hive-Name, you can get some good benefits to help your folk. But you can also use
+          another name.</p>
+        <p>This is Version 0.1 of Hammurabi - Later, with Version 1.0, you can win some coins on Hive, when you are
+          good.</p>
+        <br>
+
+        <div class="text-center" *ngIf="account">
+          <p> Please type in your name for this game: </p>
+          <label for="account-name">Name: </label>
+          <input id="account-name" [(ngModel)]="account.name" placeholder="name">
+          <button class="button" type="button" (click)="findID()">Find Game-ID</button>
+          <div *ngIf="findState==='found'">
+            <div *ngIf="selectedAccount.id">
+              <p>Welcome: {{account.name}}. Your Game ID is: {{account.id}}</p>
+            </div>
+            <a routerLink="/game/{{account.id}}">
+              <button class="button" type="button">Start Game</button>
+            </a>
+          </div>
+          <div *ngIf="findState==='notfound'">
+            <p> This user is new. If you want to play with a new user click on "new Player"</p>
+            
+          </div>
+          <p> Play with a new account: </p>
+          <a class="nav-link" routerLink="/detail/0">
+            <span class="badge">New Player</span>
+          </a>
+          <p>Or search for an existing account:  </p>
+          <nav>
+          <a class="nav-link" routerLink="/accounts">Accounts</a>
+        </nav> 
+        </div>
+
+
+
+
+        <!--
+      <ul class="accounts-menu">
+        <a *ngFor="let number of [].constructor(5), let x = index">
+          {{accounts[0].content[x].name}}
+        </a>
+      </ul>
+
+
+              <div class="text-center" *ngFor="let number of accounts[0].content, let x = index">
+        id: {{accounts[0].content[x].id}}
+        name: {{accounts[0].content[x].name}}
+        nickname: {{accounts[0].content[x].nickname}}
+        logindate: {{accounts[0].content[x].logindate}}
+      </div>
+    -->
+
+     
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+
+  <ng-template #notFound>
+    <h1>No User with this name</h1>
+  </ng-template>
+  <p> Ende</p>
+</header>

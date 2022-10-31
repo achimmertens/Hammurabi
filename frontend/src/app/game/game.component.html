@@ -1,0 +1,74 @@
+<header class="masthead">
+  <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+    <div class="d-flex justify-content-center">
+      <div class="text-center" *ngIf="account">
+        <h2>The Game</h2>
+        <p>Dear {{account.name}}. You are King Hammurabi.
+          <img src={{account.profileImage}} height="100" width="100" alt="Hive-Profile" hspace="50" vspace="50">
+        </p>
+        <p>Your Account.id is: {{account.id}}</p>
+        <p>Your banner is: {{account.about}}</p>
+        <div>
+          this.year = {{year}}
+          <p>Year: {{rounds[year].year}}</p>
+          <p>Population: {{rounds[year].population}}</p>
+          <p>Foodrate: {{rounds[year].food}}%</p>
+          <p>Treasure: {{rounds[year].treasure}}</p>
+          <p>Taxrate (influences Treasure + happiness): {{roundnow.taxrate}}</p>
+          <p>Happiness: {{roundnow.happiness}}</p>
+          <p>production: {{roundnow.production}}</p>
+          <p> Please type in your taxrate for the next year: </p>
+          <label for="taxrate">Taxrate: </label>
+          <input id="taxrate" [(ngModel)]="rounds[year].taxrate" placeholder="tax your people" type="number">
+
+          <label for="Food">Buy Food: </label>
+
+
+
+          <input #box  id="Food" placeholder="Buy food for the people" name="addfood" (keyup)="0" (keyup)="onKey($event)"
+           (keyup.enter)="checkTreasure()" (blur)="checkTreasure()" [(ngModel)]="addFood">
+
+          <p> addFood= {{addFood}}</p>
+
+          <!--
+          <input (keyup)="onKey($event)">
+          <p>{{value}}</p>
+
+          <h4>Type away! Press [enter] when done.</h4>
+          <div>
+            <input #box
+            (keyup.enter)="update(box.value)"
+            (blur)="update(box.value)">
+      
+          <p>Value = {{value}}</p>
+        
+          </div>
+  -->
+
+          <p>Taxrate: {{rounds[year].taxrate}} Food: {{addFood}} </p>
+
+          <div class="text-center" *ngIf="tooExpensive; then zuTeuer; else elseRounds">
+          </div>
+          <ng-template #zuTeuer>
+            <p> You cannot affort that amount of food!</p>
+          </ng-template>
+          <ng-template #elseRounds>
+            <div class="text-center" *ngIf="rounds[year]">
+
+              <div *ngIf="year < 15 && rounds[year].population>1; then thenTemplate; else elseTemplate">
+              </div>
+              <ng-template #thenTemplate>
+                <button class="button" type="button" title="next year" (click)="playgRound()" > next year</button>
+              </ng-template>
+              <ng-template #elseTemplate>
+                Game over
+              </ng-template>
+            </div>
+          </ng-template>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

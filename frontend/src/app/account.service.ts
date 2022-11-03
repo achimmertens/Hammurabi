@@ -12,7 +12,7 @@ import { Level1 } from './level1';
   providedIn: 'root'
 })
 export class AccountService {
-  private accountsUrl = "http://192.168.2.121:8080/api/accounts"
+  private accountsUrl = "http://localhost:8080/api/accounts"
   private accountUrl = "http://192.168.2.121:8080/api/account"
   private deleteUrl = "http://192.168.2.121:8080/api/delete"
   private hiveBlogUrl = "https://api.hive.blog"

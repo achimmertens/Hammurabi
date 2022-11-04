@@ -3,6 +3,8 @@ package org.chary.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
 
+import java.util.Date;
+
 @Document(indexName = "account")
 @Setting(settingPath = "static/es-settings.json")
 
@@ -19,7 +21,7 @@ public class AccountEntity {
     private String nickname;
 
     @Field(type = FieldType.Date, pattern = "uuuu-MM-dd'T'HH:mm:ss.SSSZZ")  //, patternexample = "2022-05-02T06:26:01.489+00:00"
-    private String logindate;
+    private Date logindate;
 
 
     //getters and setters
@@ -40,12 +42,17 @@ public class AccountEntity {
         this.name = name;
     }
 
-    public String getLogindate() {
+    public Date getLogindate() {
         return logindate;
     }
 
-    public void setLogindate(String logindate) {
-        this.logindate = logindate;
+    public void setLogindate(Date logindate) {
+
+        try {
+            this.logindate = logindate;
+        }
+        catch (Exception e) {
+            e.printStackTrace();}
     }
 
     public String getNickname() {

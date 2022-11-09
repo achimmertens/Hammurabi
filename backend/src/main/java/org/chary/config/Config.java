@@ -12,6 +12,8 @@ import org.springframework.data.elasticsearch.client.RestClients;
 import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfiguration;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
+import java.io.IOException;
+
 
 @Configuration
 @EnableElasticsearchRepositories(basePackages = "org.chary.repository")
@@ -25,21 +27,26 @@ public class Config extends AbstractElasticsearchConfiguration {
     @Bean
     @Override
     public RestHighLevelClient elasticsearchClient() {
-        try {
+
             log.info("Trying to connect to the elasticSearch database ...");
             final ClientConfiguration config = ClientConfiguration.builder()
                     .connectedTo(elasticsearchUrl)
                     .build();
-            log.info("RestClients.create(config).rest() = ",RestClients.create(config).rest());
             log.debug("Diese Meldung erscheint nur im Debug Level");
             log.warn("If the Tomcat crashes here, then probably the elasticseach database was not found...");
-            return
 
-                    RestClients.create(config).rest();
+
+        RestHighLevelClient r =RestClients.create(config).rest();
+        try {
+            return r;
         }
-        catch (RuntimeException exc) {
-            log.warn("There is a problem with the connection to the elasticSearch database!", exc);
+        catch(Exception exp){
             return null;
         }
+
+
+
+
+
     }
 }

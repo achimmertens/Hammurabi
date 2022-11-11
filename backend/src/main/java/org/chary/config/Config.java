@@ -1,5 +1,8 @@
 package org.chary.config;
 
+import org.elasticsearch.ElasticsearchException;
+import org.elasticsearch.ResourceNotFoundException;
+import org.elasticsearch.client.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -26,7 +29,7 @@ public class Config extends AbstractElasticsearchConfiguration {
 
     @Bean
     @Override
-    public RestHighLevelClient elasticsearchClient() {
+    public RestHighLevelClient elasticsearchClient() throws ResourceNotFoundException{
 
             log.info("Trying to connect to the elasticSearch database ...");
             final ClientConfiguration config = ClientConfiguration.builder()
@@ -35,13 +38,13 @@ public class Config extends AbstractElasticsearchConfiguration {
             log.debug("Diese Meldung erscheint nur im Debug Level");
             log.warn("If the Tomcat crashes here, then probably the elasticseach database was not found...");
 
-
-        RestHighLevelClient r =RestClients.create(config).rest();
         try {
+        RestHighLevelClient r =RestClients.create(config).rest();
+
             return r;
         }
-        catch(Exception exp){
-            return null;
+        catch(ElasticsearchException e){
+            throw new ResourceNotFoundException("The ElasticSearch Database was not found");
         }
 
 

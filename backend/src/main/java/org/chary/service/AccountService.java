@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 @Service
 public class AccountService {
+    private static final Logger logger=LogManager.getLogger(AccountService.class);
 
     @Autowired
     static
@@ -22,11 +23,18 @@ public class AccountService {
 
     @Autowired
     public AccountService(AccountRepository repository) {
-        this.repository = repository;
+        try {
+            logger.debug("Start trying to get the repository");
+            this.repository = repository;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.warn("Cannot get the repository, ", e);
+        }
     }
-    private static final Logger logger=LogManager.getLogger(AccountService.class);
-        public void save(final AccountEntity account) {
-        repository.save(account);
+
+
+    public void save(final AccountEntity account) {
+    repository.save(account);
     }
 
     public AccountEntity findById(final String id) {

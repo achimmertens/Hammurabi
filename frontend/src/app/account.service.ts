@@ -12,8 +12,8 @@ import { Level1 } from './level1';
   providedIn: 'root'
 })
 export class AccountService {
-  private accountsUrl = "http://192.168.2.121:8080/api/accounts"
-  private accountUrl = "http://192.168.2.121:8080/api/account"
+  private accountsUrl = "http://localhost:8080/api/accounts"
+  private accountUrl = "http://localhost:8080/api/account"
   private deleteUrl = "http://192.168.2.121:8080/api/delete"
   private hiveBlogUrl = "https://api.hive.blog"
   private postContent = "{\"jsonrpc\":\"2.0\", \"method\":\"condenser_api.get_discussions_by_author_before_date\", \"params\":[\"achimmertens\",\"\",\"\",3], \"id\":1}";
